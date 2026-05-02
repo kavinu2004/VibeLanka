@@ -66,8 +66,6 @@
 ## 3. Open Flags (need decisions or specialist input)
 
 **Founder decisions needed:**
-- **Track 1 scaffolding scope.** Two options surfaced by the audit: (a) minimum-viable migration — Next.js, split into per-component files, CSS Modules, working waitlist endpoint, ~1–2 hours, design pixel-identical; or (b) just split the file into per-component pieces without changing framework, ~20 min, no framework decision. (a) is the recommended path — committing the prototype as-is leaves it unrunnable.
-- **Waitlist provider.** Where do captured emails go? Resend / Loops / ConvertKit / Mailchimp / homegrown Supabase table? Track 1 needs this answered before the form gets wired.
 - **Hosting account ownership.** Vercel project under whose account — personal, or a Vibe Lanka shared account? Domain registration — is `vibelanka.com` (or whatever variant) registered, where, who pays?
 - **Image rights.** Marketing site currently uses Unsplash hot-links (TOS-fragile, bad LCP). Need locally-hosted licensed photos. Either commission, license stock, or use the founders' own Sri Lanka photography. Decide before Track 1 ships.
 - **Trending signal definition.** The prompt implies vote-driven, which probably resolves the older "editorial toggle vs behavioral score" question — but confirm: is trending purely vote-count-derived, or does it also factor venue check-ins / external signals (Instagram mentions, etc.)? If purely votes, it inherits the cold-start problem in section 1.
@@ -101,3 +99,5 @@
 
 - **2026-05-02.** Decisions log created. Project state reconciled across three prior conversation threads. Web-first reaffirmed. Native build shelved. Marketing site is the current artifact; next build is the actual web app.
 - **2026-05-02.** Repo audit performed by Claude Code (see `repo-audit-2026-05-02.md`). Findings: repo is a single 1,604-line unrunnable JSX file, no framework scaffolding. Committed: two-track split — Track 1 (ship marketing site as real Next.js project) before Track 2 (build the actual app). Surfaced new open flags: waitlist provider, hosting/domain ownership, image rights.
+- **2026-05-02.** Track 1 scaffolding scope committed: option (a) — minimum-viable Next.js migration. Prototype splits into per-component files, CSS Modules for styling (Tailwind already rejected), working waitlist endpoint, design pixel-identical to current prototype. Resolves the (a) vs (b) open flag.
+- **2026-05-02.** Waitlist provider committed: **Resend**. Captured emails route through a Next.js API route to a Resend audience. Reasons: minimal setup, transactional email available on the same provider for partner inquiry replies later, generous free tier sufficient for pre-launch volume, good Next.js DX. Requires `RESEND_API_KEY` env var; will be documented in `.env.example`.
