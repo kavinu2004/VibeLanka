@@ -1,0 +1,54 @@
+.section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 120px 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.phoneCol {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30;
+  color: var(--ink);
+  margin: 0;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ember);
+}
+
+.copy {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--muted-deep);
+  margin: 32px 0 40px;
+  max-width: 480px;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; gap: 48px; }
+}

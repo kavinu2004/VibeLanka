@@ -1,0 +1,54 @@
+:root {
+  --ink: #181614;
+  --paper: #FAF7F2;
+  --paper-deep: #F2EDE5;
+  --paper-warm: #EFE8DD;
+  --ember: #D4471C;
+  --ember-deep: #A8330F;
+  --ember-warm: #E86A40;
+  --muted: #8A857E;
+  --muted-deep: #5C5851;
+
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, monospace;
+  --font-sans: var(--font-familjen), system-ui, sans-serif;
+
+  --easing: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background: var(--paper);
+  color: var(--ink);
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; padding: 0; margin: 0; }
+button { font-family: inherit; }
+
+@keyframes vl-pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.vl-pulse-dot { animation: vl-pulse-dot 1.5s var(--easing) infinite; }
+
+@keyframes vl-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.vl-ticker { animation: vl-ticker 60s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .vl-ticker { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .responsive-grid-2 { grid-template-columns: 1fr !important; }
+  .responsive-grid-3 { grid-template-columns: 1fr !important; }
+}

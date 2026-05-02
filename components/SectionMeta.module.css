@@ -1,0 +1,39 @@
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+  margin-bottom: 64px;
+  color: var(--muted);
+}
+
+.metaDarkBg {
+  color: var(--muted-deep);
+}
+
+.metaInverted {
+  color: var(--muted);
+}
+
+.num {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ember);
+  letter-spacing: -0.02em;
+}
+
+.line {
+  width: 60px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.label {
+  text-transform: uppercase;
+}

@@ -1,0 +1,45 @@
+.section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 120px 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.right {
+  padding-top: 16px;
+}
+
+.lead {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ember);
+}
+
+.copy {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--muted-deep);
+  margin: 0 0 20px;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; gap: 32px; }
+}

@@ -1,0 +1,169 @@
+.section {
+  background: var(--paper-warm);
+  padding: 120px 40px;
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(72px, 12vw, 180px);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30;
+  color: var(--ink);
+  margin: 0;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+}
+
+.italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ember);
+}
+
+.copy {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  color: var(--muted-deep);
+  margin: 32px auto 40px;
+  max-width: 480px;
+}
+
+.form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 520px;
+  margin: 0 auto 32px;
+}
+
+.input {
+  flex: 1;
+  min-width: 260px;
+  padding: 16px 20px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: var(--ink);
+  transition: border-color 200ms;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ember);
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+.submit {
+  padding: 16px 24px;
+  background: var(--ember);
+  color: var(--paper);
+  border: 1px solid var(--ember);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 200ms, transform 200ms var(--easing);
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--ember-deep);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.message {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin: 0 0 24px;
+  min-height: 18px;
+}
+
+.messageError {
+  color: var(--ember-deep);
+}
+
+.divider {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin: 8px auto 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 320px;
+  justify-content: center;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: var(--paper-deep);
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 28px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 200px;
+  transition: transform 200ms var(--easing);
+}
+
+.buttonKicker {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.buttonName {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--paper);
+  letter-spacing: -0.015em;
+}
+
+.tinyPrint {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 40px auto 0;
+  max-width: 520px;
+}
+
+.inlineLink {
+  color: var(--ember);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}

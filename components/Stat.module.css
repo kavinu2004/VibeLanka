@@ -1,0 +1,33 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.value {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-style: italic;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted-deep);
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
