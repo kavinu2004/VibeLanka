@@ -8,12 +8,13 @@
 
 ## 1. Current State (as of May 2, 2026)
 
-**Built (prototype, not yet runnable):**
-- Single 1,604-line `vibe-lanka.jsx` file in the `VibeLanka` repo. No `package.json`, no build setup, no other source files. Will not run as-is — needs framework scaffolding before deployment.
-- Content of the prototype: desktop marketing site. Hero "The bay, tonight." in Fraunces; South Coast strip as horizontal geographic ribbon (seven towns, live people-counts); ticker bar; three-pillar explainer (Map / Trending / Featured); embedded phone mockups for Map and Plan; partner pitch; manifesto; CTA; footer.
-- Nav: Map / Trending / The Coasts (hover dropdown with monsoon seasons: South Nov–Apr, East May–Sep, West year-round, North Mar–Oct) / Venues / CTA. Three-column grid for uniform spacing.
+**Built and locally runnable:**
+- The `vibe-lanka.jsx` prototype has been migrated to a real Next.js (App Router) project with CSS Modules and a component-split architecture. `npm run dev` serves at `http://localhost:3000`. Production build is clean (`npm run build` passes). Original prototype preserved at `archive/vibe-lanka-prototype.jsx` for reference.
+- Marketing site content (unchanged from prototype): desktop hero "The bay, tonight." in Fraunces; South Coast strip as horizontal geographic ribbon (seven towns, live people-counts); ticker bar; three-pillar explainer (Map / Trending / Featured); embedded phone mockups for Map and Plan; partner pitch; manifesto; CTA; footer.
+- Nav: The Coasts (hover/keyboard dropdown with monsoon seasons: South Nov–Apr, East May–Sep, West year-round, North Mar–Oct) / Trending / Venues / Get the app. All dropdown destinations resolve to `#strip` in v1 — per-coast pages are Track 2.
+- Live clock fixed (no more SSR mismatch, ticks every 30s). Waitlist API route in place at `app/api/waitlist/route.js`; awaits Resend env config to go live. Vercel Analytics mounted in `app/layout.jsx`. Placeholder favicon at `app/icon.svg`.
 - Subhead in Fraunces 22px regular (not the body sans).
-- See `repo-audit-2026-05-02.md` for full audit including known bugs and structural issues.
+- See `repo-audit-2026-05-02.md` for the pre-migration audit.
 
 **Built but shelved:**
 - Expo + React Native + TypeScript native app from an earlier thread. Mobile screens (Home magazine-masthead + Place Details with overlap title card). Supabase schema + seed for `places`. Not currently the active form factor. Treat as reference, not the path.
@@ -51,6 +52,8 @@
 - **Database:** PostgreSQL with PostGIS extension. Supabase for managed Postgres + auth + realtime through Phase 2.
 - **Realtime:** Supabase Realtime or Pusher. Do not build from scratch.
 - **Auth:** Supabase Auth or Clerk. Email + Google + Apple at minimum. Phone auth for the local market is a real consideration.
+- **Waitlist:** Resend Audiences. POST → `/api/waitlist` → `resend.contacts.create({ audienceId, email })`. Architectural decision committed; live integration awaits production env vars (`RESEND_API_KEY`, `RESEND_AUDIENCE_ID`). Same provider planned for transactional email (partner-inquiry replies) when that flow is built.
+- **Analytics:** Vercel Analytics (`@vercel/analytics/next`). Mounted in the root layout. No-op outside Vercel deployments.
 
 ### Product architecture decisions
 - **Two tracks, sequenced.** Track 1 = ship the marketing site (scaffold the prototype into a real Next.js project, deployable, with working waitlist + partner inquiry). Track 2 = build the actual app (live-presence backend, map UI, voting, itinerary). Track 1 first because the site is the funnel; without it there's no audience for the app. Track 2 can have its own subdirectory or eventual separate repo. Do not conflate them — "where do we start" is hard to answer when these two goals are tangled.
@@ -58,8 +61,10 @@
 - **Vote integrity:** Account-bound votes are the floor. One vote per user per night per location. "Anonymous" means publicly anonymous, not unlinked from account. Votes display as percentages, not named avatars (changed from v2).
 - **Location data:** Voluntary check-ins, not passive tracking. The social contract is explicit: opt-in, used for live map and trending only, not sold.
 - **Featured:** Paid placement with editorial responsibility (verified by venue, content responsibility on us). Currently empty on the marketing site with a partner-program pitch — keep it that way until real partners exist. An empty Featured section with a pitch is more honest than fake placeholders.
-- **Trending:** Heat bars, color-graded. No rank numbers. Driven by vote counts.
+- **Trending visual treatment:** Heat bars, color-graded by intensity. No rank numbers. (Architecture for what feeds those bars is below under "v1 trending signal architecture.")
 - **Geography:** South Coast Strip (Mirissa → Hiriketiya, seven sub-areas) is the hero geography. Other coasts exist but the strip carries the load on the marketing site and likely in the live product too, at least initially.
+- **Track 1 scaffolding executed (2026-05-02).** Option (a) shipped: Next.js App Router, per-component file structure under `components/`, CSS Modules per component, design tokens as CSS custom properties on `:root`, `next/font` for Fraunces / DM Mono / Familjen Grotesk. Tactical site decisions made during the migration: pills swept across the nav CTA (sharp + hairline ink border + ember hover), place-card tags, and phone area chips, in line with the existing aesthetic rule. Hero title clamp tightened to `clamp(48px, 14vw, 220px)` so the "The bay, / tonight." composition holds at 360px viewports. Vercel Analytics mounted in the root layout (no-op outside Vercel). Placeholder favicon (`app/icon.svg`): ember square with paper italic "V", serif fallback (Fraunces not baked into the SVG yet).
+- **v1 trending signal architecture.** Trending is a **weighted composite**, not a single-source ranker, from day one: editorial picks 60% / venue partner signals 20% / calendar + seasonality 10% / weather 10%. Vote weight grows as real vote data accrues, displacing weight proportionally from the editorial input. **Track 2 architectural note:** the trending blender must be designed as a weighted multi-input system from the first commit, not a vote-count ranker that gets retrofitted with other inputs later. The blender architecture is what survives data sparsity.
 
 ---
 
@@ -67,8 +72,11 @@
 
 **Founder decisions needed:**
 - **Hosting account ownership.** Vercel project under whose account — personal, or a Vibe Lanka shared account? Domain registration — is `vibelanka.com` (or whatever variant) registered, where, who pays?
-- **Image rights.** Marketing site currently uses Unsplash hot-links (TOS-fragile, bad LCP). Need locally-hosted licensed photos. Either commission, license stock, or use the founders' own Sri Lanka photography. Decide before Track 1 ships.
-- **Trending signal definition.** The prompt implies vote-driven, which probably resolves the older "editorial toggle vs behavioral score" question — but confirm: is trending purely vote-count-derived, or does it also factor venue check-ins / external signals (Instagram mentions, etc.)? If purely votes, it inherits the cold-start problem in section 1.
+- **Image rights.** Marketing site currently uses Unsplash hot-links (TOS-fragile, bad LCP, currently allow-listed in `next.config.mjs` so `next/image` proxies them). Need locally-hosted licensed photos. Either commission, license stock, or use the founders' own Sri Lanka photography. Decide before Track 1 ships.
+- **Waitlist provider — Resend chosen, integration pending.** Provider decision committed (see Stack). Outstanding: create the Resend account, generate `RESEND_API_KEY`, create the audience, put `RESEND_AUDIENCE_ID` in `.env.local` (and Vercel env on deploy), and smoke-test a real signup end-to-end against the live `app/api/waitlist/route.js`.
+- **OG image generation.** Marketing site has no OG image. Aspirational target: an editorial OG generated at build time per page. Likely depends on the Image rights decision (need brand photography to anchor the composition).
+- **Favicon refinement.** Current `app/icon.svg` is a placeholder (ember square + serif-fallback italic "V"). Refinement options: bake a Fraunces subset into the SVG, hand-draw a "V" path so it renders identically across browsers, or pivot to a non-letterform mark.
+- **Trending signal definition.** Partially resolved 2026-05-02 (see Product architecture decisions → v1 trending signal architecture). Still open: per-input data sources, update cadence, how vote-weight scales as real data accrues, how the partner-signal weight is computed, what "calendar + seasonality" inputs concretely include.
 - **Curated-to-live transition design.** At 12 users the map is curated. At 12,000 it's live. The transition is a designed product moment — who decides when a town/venue flips from curated to live, and what does the visual treatment look like at each end?
 - **Confidence display for sparse votes.** "47 votes, mostly from Hiriketiya regulars" vs "847 votes, distributed across the south coast" need different visual treatments. Open question: how aggressively do we expose the underlying confidence to users vs hide complexity?
 - **Phone auth priority.** Worth doing for v1 for local-market accessibility, or defer to v2?
@@ -92,6 +100,7 @@
 - **Advanced fraud / Sybil detection.** Account-bound votes + IP reputation for v1. Device fingerprinting and behavioral fraud detection deferred until vote manipulation actually happens.
 - **Architecture extraction from Next.js API routes.** Stays monolithic until load forces the split.
 - **Phase 3 infrastructure (10k+ users).** Re-evaluate when we get close. "Moved fast on Supabase" is the right answer for Phase 1.
+- **Per-coast navigation surfaces.** The Coasts dropdown lists South / East / West / North with monsoon seasons, but every entry currently resolves to `#strip`. Per-coast pages and nav targets are Track 2 work — they need actual product surface (live presence by coast, area-specific trending) before navigation makes sense.
 
 ---
 
@@ -101,3 +110,4 @@
 - **2026-05-02.** Repo audit performed by Claude Code (see `repo-audit-2026-05-02.md`). Findings: repo is a single 1,604-line unrunnable JSX file, no framework scaffolding. Committed: two-track split — Track 1 (ship marketing site as real Next.js project) before Track 2 (build the actual app). Surfaced new open flags: waitlist provider, hosting/domain ownership, image rights.
 - **2026-05-02.** Track 1 scaffolding scope committed: option (a) — minimum-viable Next.js migration. Prototype splits into per-component files, CSS Modules for styling (Tailwind already rejected), working waitlist endpoint, design pixel-identical to current prototype. Resolves the (a) vs (b) open flag.
 - **2026-05-02.** Waitlist provider committed: **Resend**. Captured emails route through a Next.js API route to a Resend audience. Reasons: minimal setup, transactional email available on the same provider for partner inquiry replies later, generous free tier sufficient for pre-launch volume, good Next.js DX. Requires `RESEND_API_KEY` env var; will be documented in `.env.example`.
+- **2026-05-02 (continued).** Track 1 scaffolding completed and verified visually at 360 / 390 / 768 / 1024 / 1440 viewports. Pills swept (nav CTA, place-card tags, phone area chips). Mobile hero clamp tightened to `clamp(48px, 14vw, 220px)`. Vercel Analytics mounted. Placeholder favicon added. Coasts dropdown gained keyboard accessibility (focus open, Escape close, `aria-expanded` / `aria-haspopup` / `role="menu"`). Ready for content pass + Resend integration + Vercel deployment as next steps. v1 trending signal architecture decided as a weighted composite (60 / 20 / 10 / 10).
