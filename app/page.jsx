@@ -1,6 +1,5 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import PhilosophyBar from "@/components/PhilosophyBar";
 import FeatureExplainer from "@/components/FeatureExplainer";
 import SouthCoastShowcase from "@/components/SouthCoastShowcase";
 import ThreeWaysToFind from "@/components/ThreeWaysToFind";
@@ -15,7 +14,6 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
-      <PhilosophyBar />
       <FeatureExplainer />
       <SouthCoastShowcase />
       <ThreeWaysToFind />

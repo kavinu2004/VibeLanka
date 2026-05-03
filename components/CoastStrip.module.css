@@ -74,3 +74,71 @@
   text-transform: uppercase;
   color: var(--muted);
 }
+
+.townDot {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+  }
+  .labels {
+    font-size: 9px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    letter-spacing: 0.14em;
+  }
+  .labelCenter {
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .svg {
+    display: none;
+  }
+  .towns {
+    position: static;
+    height: auto;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+  .town {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--paper-deep);
+  }
+  .town:last-child {
+    border-bottom: none;
+  }
+  .townDot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .townName {
+    font-size: 18px;
+    flex: 1;
+  }
+  .townCount {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .townLabel {
+    font-size: 9px;
+    text-align: right;
+    width: 84px;
+    flex-shrink: 0;
+  }
+}

@@ -21,7 +21,7 @@ const COLS = [
     title: "Company",
     links: [
       { label: "Manifesto", href: "#" },
-      { label: "Contact", href: "mailto:hello@vibelanka.com" },
+      { label: "Contact", href: "mailto:team@vibelanka.com" },
       { label: "Press", href: "mailto:press@vibelanka.com" },
     ],
   },
@@ -59,7 +59,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.bottom}>
-        <span>© Vibe Lanka 2026 · Made on the bay</span>
+        <span className={styles.credit}>© Vibe Lanka 2026 · Made on the bay</span>
         <span className={styles.live}>
           <span className={`${styles.liveDot} vl-pulse-dot`} />
           LIVE · <LiveClock />

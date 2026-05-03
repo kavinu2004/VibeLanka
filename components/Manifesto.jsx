@@ -4,7 +4,7 @@ export default function Manifesto() {
   return (
     <section className={styles.section}>
       <div className={styles.wrap}>
-        <span className={styles.kicker}>—— OUR THESIS</span>
+        <span className={styles.kicker}>—— OUR THESIS · LOCALS WROTE THIS</span>
         <p className={styles.body}>
           The internet went stale on the south coast. Travel blogs that
           haven&apos;t been updated since 2019. Reviews about a chef who left in

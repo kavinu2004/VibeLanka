@@ -57,6 +57,11 @@ export default function CoastStrip() {
               className={styles.town}
               style={{ left: `${town.x}%` }}
             >
+              <span
+                className={styles.townDot}
+                style={{ background: town.heatColor }}
+                aria-hidden="true"
+              />
               <span className={styles.townName}>{town.name}</span>
               <span className={styles.townCount} style={{ color: town.heatColor }}>
                 {town.peopleNow.toLocaleString()}
