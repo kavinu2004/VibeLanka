@@ -25,11 +25,22 @@
   color: var(--ink);
   letter-spacing: -0.02em;
   justify-self: start;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.18em;
 }
 
-.logoItalic {
+.logoLatin {
   font-style: italic;
   font-weight: 400;
+}
+
+.logoSinhala {
+  font-family: var(--font-sinhala-serif);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.1em;
+  letter-spacing: 0;
 }
 
 .links {

@@ -12,6 +12,7 @@
   --font-serif: var(--font-fraunces), Georgia, serif;
   --font-mono: var(--font-dm-mono), ui-monospace, monospace;
   --font-sans: var(--font-familjen), system-ui, sans-serif;
+  --font-sinhala-serif: var(--font-noto-sinhala), "Iskoola Pota", "Nirmala UI", serif;
 
   --easing: cubic-bezier(0.32, 0.72, 0, 1);
 }

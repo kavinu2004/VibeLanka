@@ -1,4 +1,9 @@
-import { Fraunces, DM_Mono, Familjen_Grotesk } from "next/font/google";
+import {
+  Fraunces,
+  DM_Mono,
+  Familjen_Grotesk,
+  Noto_Serif_Sinhala,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -24,6 +29,13 @@ const familjenGrotesk = Familjen_Grotesk({
   display: "swap",
 });
 
+const notoSerifSinhala = Noto_Serif_Sinhala({
+  subsets: ["sinhala"],
+  weight: ["400"],
+  variable: "--font-noto-sinhala",
+  display: "swap",
+});
+
 export const metadata = {
   title: "Vibe Lanka — The bay, tonight.",
   description:
@@ -46,7 +58,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${dmMono.variable} ${familjenGrotesk.variable}`}
+      className={`${fraunces.variable} ${dmMono.variable} ${familjenGrotesk.variable} ${notoSerifSinhala.variable}`}
     >
       <body>
         {children}

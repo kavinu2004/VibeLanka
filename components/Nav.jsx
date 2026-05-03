@@ -25,8 +25,9 @@ export default function Nav() {
   return (
     <nav className={styles.nav}>
       <div className={styles.inner}>
-        <span className={styles.logo}>
-          Vibe<em className={styles.logoItalic}>Lanka</em>
+        <span className={styles.logo} aria-label="Vibe Lanka">
+          <em className={styles.logoLatin}>Vibe</em>
+          <span className={styles.logoSinhala} lang="si">ලංකා</span>
         </span>
         <ul className={styles.links}>
           <li
