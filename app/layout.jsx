@@ -5,7 +5,6 @@ import {
   Noto_Serif_Sinhala,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import PaperSwitcher from "@/components/PaperSwitcher";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -63,7 +62,6 @@ export default function RootLayout({ children }) {
     >
       <body>
         {children}
-        <PaperSwitcher />
         <Analytics />
       </body>
     </html>

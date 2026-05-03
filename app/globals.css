@@ -1,4 +1,3 @@
-/* color-experiment branch — do not merge */
 :root {
   --ink: #5A85A0;        /* steel blue with more saturation (was #6E8FA3) */
   --ember: #D06A48;      /* terracotta with more bite (was #C97B5C) */
@@ -7,7 +6,6 @@
   --muted: #8A857E;
   --muted-deep: #5C5851;
 
-  /* default paper variant: cool */
   --paper: #F5F4F0;
   --paper-deep: #ECEAE3;
   --paper-warm: #E8E5DD;
@@ -18,18 +16,6 @@
   --font-sinhala-serif: var(--font-noto-sinhala), "Iskoola Pota", "Nirmala UI", serif;
 
   --easing: cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-[data-paper="warm"] {
-  --paper: #FBF6EB;
-  --paper-deep: #F4EFE3;
-  --paper-warm: #F0EAD9;
-}
-
-[data-paper="near"] {
-  --paper: #FCFBF8;
-  --paper-deep: #F5F2EC;
-  --paper-warm: #F1EDE3;
 }
 
 * { box-sizing: border-box; }
