@@ -52,3 +52,10 @@
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; gap: 48px; }
 }
+
+@media (max-width: 768px) {
+  .section { padding: 60px 20px; }
+  .grid { gap: 32px; }
+  .title { font-size: clamp(40px, 11vw, 72px); }
+  .copy { font-size: 16px; margin: 24px 0 32px; }
+}

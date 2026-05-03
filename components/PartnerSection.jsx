@@ -23,6 +23,9 @@ export default function PartnerSection() {
             venue makes the page. One slot per category per area per month —
             so the page never bloats and partners never compete inside it.
           </p>
+          <p className={styles.principles}>
+            FEATURED IS PAID, MARKED · NO PLACEHOLDER LISTINGS
+          </p>
         </div>
         <div className={styles.card}>
           <span className={styles.kicker}>BECOME A PARTNER</span>

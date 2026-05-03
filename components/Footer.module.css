@@ -90,6 +90,10 @@
   gap: 16px;
 }
 
+.credit {
+  color: rgba(255, 255, 255, 0.65);
+}
+
 .live {
   display: flex;
   align-items: center;
@@ -107,4 +111,12 @@
 @media (max-width: 900px) {
   .inner { grid-template-columns: 1fr; gap: 40px; }
   .cols { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .footer { padding: 56px 0 0; }
+  .inner { padding: 0 20px; gap: 32px; }
+  .logoText { font-size: 40px; }
+  .cols { gap: 24px; }
+  .bottom { padding: 24px 20px; margin-top: 40px; gap: 12px; flex-direction: column; align-items: flex-start; }
 }

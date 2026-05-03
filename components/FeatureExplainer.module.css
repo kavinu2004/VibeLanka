@@ -43,3 +43,10 @@
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; gap: 32px; }
 }
+
+@media (max-width: 768px) {
+  .section { padding: 60px 20px; }
+  .lead { font-size: clamp(32px, 7vw, 48px); }
+  .copy { font-size: 16px; }
+  .right { padding-top: 0; }
+}

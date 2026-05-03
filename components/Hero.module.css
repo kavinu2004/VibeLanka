@@ -102,3 +102,38 @@
   border: 1px solid var(--ink);
   border-radius: 4px;
 }
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 32px 20px 0;
+  }
+  .kicker {
+    font-size: 10px;
+    margin-bottom: 20px;
+    letter-spacing: 0.14em;
+  }
+  .title {
+    font-size: clamp(40px, 11vw, 72px);
+    letter-spacing: -0.04em;
+  }
+  .sub {
+    font-size: 17px;
+    margin-top: 28px;
+    line-height: 1.4;
+  }
+  .actions {
+    margin-top: 28px;
+    margin-bottom: 48px;
+    gap: 8px;
+    width: 100%;
+  }
+  .cta, .ghost {
+    padding: 14px 22px;
+    font-size: 14px;
+    flex: 1;
+    justify-content: center;
+  }
+  .ctaArrow {
+    margin-left: 8px;
+  }
+}

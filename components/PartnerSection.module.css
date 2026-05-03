@@ -33,8 +33,19 @@
   font-family: var(--font-sans);
   font-size: 17px;
   line-height: 1.6;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.92);
   margin: 32px 0 0;
+  max-width: 520px;
+}
+
+.principles {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  margin: 24px 0 0;
   max-width: 520px;
 }
 
@@ -99,4 +110,14 @@
 
 @media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 60px 20px; }
+  .grid { gap: 32px; }
+  .title { font-size: clamp(40px, 10vw, 64px); }
+  .copy { font-size: 16px; margin: 24px 0 0; }
+  .card { padding: 24px 20px; }
+  .label { font-size: 16px; }
+  .email { font-size: 18px; margin-top: 20px; padding-top: 20px; }
 }

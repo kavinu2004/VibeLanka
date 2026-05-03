@@ -17,7 +17,7 @@ export default function FeatureExplainer() {
             Tourist guides go stale in eight months. Google reviews bury the
             two-year-old kottu shop your driver swears by. Vibe Lanka is the
             opposite: an app that knows the bay flat-emptied at noon, that
-            Smoke &amp; Bitters is at 88% tonight, that the Hiriketiya yoga
+            Dots Bay House is at 88% tonight, that the Hiriketiya yoga
             shala starts at seven on Tuesdays.
           </p>
           <p className={styles.copy}>

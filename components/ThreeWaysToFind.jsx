@@ -24,7 +24,7 @@ export default function ThreeWaysToFind() {
           tagColor={tokens.ember}
           title="Trending"
           subtitle="Where everyone is, right now."
-          description="Live crowd density. Phones at the location, fed every two minutes. Heat bars show relative count. Not paid. Not influenced by reviews. Just: where is the room actually full tonight."
+          description="Live crowd density. Heat bars show relative count. Not paid. Not influenced by reviews. Just: where is the room actually full tonight."
           metric="Live · updates every 2 min"
         />
         <FindBlock
@@ -47,6 +47,7 @@ export default function ThreeWaysToFind() {
             Updated 2m ago · <LiveClock />
           </span>
         </div>
+        <p className={styles.previewNote}>TRENDING IS NOT PAID</p>
         <ul className={styles.list}>
           {TRENDING_TONIGHT.map((t, i) => (
             <TrendingPreviewRow key={t.name} item={t} index={i} />

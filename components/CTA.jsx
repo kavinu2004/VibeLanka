@@ -95,8 +95,8 @@ export default function CTA() {
       <p className={styles.tinyPrint}>
         Currently rolling out across the south coast. Ella, Colombo, Kandy,
         Arugam Bay live. North coast in beta. Reach the team at{" "}
-        <a href="mailto:hello@vibelanka.com" className={styles.inlineLink}>
-          hello@vibelanka.com
+        <a href="mailto:team@vibelanka.com" className={styles.inlineLink}>
+          team@vibelanka.com
         </a>
         .
       </p>
