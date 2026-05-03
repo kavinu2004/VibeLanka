@@ -35,18 +35,11 @@ button { font-family: inherit; }
 }
 .vl-pulse-dot { animation: vl-pulse-dot 1.5s var(--easing) infinite; }
 
-@keyframes vl-ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.vl-ticker { animation: vl-ticker 60s linear infinite; }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
-  .vl-ticker { animation: none; }
 }
 
 @media (max-width: 900px) {

@@ -1,26 +1,29 @@
 .bar {
   background: var(--ink);
   color: var(--paper);
-  padding: 16px 0;
-  overflow: hidden;
+  padding: 24px 40px;
   width: 100%;
 }
 
-.ticker {
-  display: inline-flex;
-  white-space: nowrap;
-  gap: 48px;
+.list {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 32px;
 }
 
 .item {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.16em;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  padding-right: 16px;
+  gap: 12px;
+  white-space: nowrap;
 }
 
 .dot {

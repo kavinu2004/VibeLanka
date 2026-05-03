@@ -13,10 +13,10 @@ const ITEMS = [
 export default function PhilosophyBar() {
   return (
     <div className={styles.bar}>
-      <div className={`${styles.ticker} vl-ticker`}>
-        {[...ITEMS, ...ITEMS].map((item, i) => (
-          <span key={i} className={styles.item}>
-            <span className={styles.dot} />
+      <div className={styles.list}>
+        {ITEMS.map((item) => (
+          <span key={item} className={styles.item}>
+            <span className={styles.dot} aria-hidden="true" />
             {item}
           </span>
         ))}
