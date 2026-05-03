@@ -2,8 +2,16 @@
 
 import { motion } from "framer-motion";
 import { SOUTH_COAST_STRIP } from "@/lib/data/coast";
-import { tokens, easingArr } from "@/lib/tokens";
+import { tokens, easingArr, getHeatColor } from "@/lib/tokens";
 import styles from "./CoastStrip.module.css";
+
+const MAX_PEOPLE = Math.max(...SOUTH_COAST_STRIP.map((t) => t.peopleNow));
+
+const TOWNS = SOUTH_COAST_STRIP.map((town) => ({
+  ...town,
+  pct: (town.peopleNow / MAX_PEOPLE) * 100,
+  heatColor: getHeatColor((town.peopleNow / MAX_PEOPLE) * 100),
+}));
 
 export default function CoastStrip() {
   return (
@@ -31,16 +39,16 @@ export default function CoastStrip() {
             fill="none"
             strokeLinecap="round"
           />
-          {SOUTH_COAST_STRIP.map((town) => (
+          {TOWNS.map((town) => (
             <g key={town.name} transform={`translate(${town.x}, 6)`}>
-              <circle cx="0" cy="0" r="1.2" fill={tokens.ember} opacity="0.18" />
-              <circle cx="0" cy="0" r="0.5" fill={tokens.ember} />
+              <circle cx="0" cy="0" r="1.2" fill={town.heatColor} opacity="0.22" />
+              <circle cx="0" cy="0" r="0.5" fill={town.heatColor} />
             </g>
           ))}
         </svg>
 
         <div className={styles.towns}>
-          {SOUTH_COAST_STRIP.map((town, i) => (
+          {TOWNS.map((town, i) => (
             <motion.div
               key={town.name}
               initial={{ opacity: 0, y: 10 }}
@@ -50,7 +58,7 @@ export default function CoastStrip() {
               style={{ left: `${town.x}%` }}
             >
               <span className={styles.townName}>{town.name}</span>
-              <span className={styles.townCount}>
+              <span className={styles.townCount} style={{ color: town.heatColor }}>
                 {town.peopleNow.toLocaleString()}
               </span>
               <span className={styles.townLabel}>{town.peakTime}</span>

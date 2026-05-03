@@ -1,14 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { tokens, easingArr } from "@/lib/tokens";
+import { easingArr, getHeatColor } from "@/lib/tokens";
 import styles from "./TrendingPreviewRow.module.css";
 
 export default function TrendingPreviewRow({ item, index }) {
-  const heatColor =
-    item.pct > 80 ? tokens.ember :
-    item.pct > 40 ? tokens.emberWarm :
-    tokens.muted;
+  const heatColor = getHeatColor(item.pct);
   return (
     <motion.li
       initial={{ opacity: 0, x: -10 }}
