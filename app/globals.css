@@ -1,13 +1,16 @@
+/* color-experiment branch — do not merge */
 :root {
-  --ink: #181614;
-  --paper: #FAF7F2;
-  --paper-deep: #F2EDE5;
-  --paper-warm: #EFE8DD;
-  --ember: #D4471C;
-  --ember-deep: #A8330F;
-  --ember-warm: #E86A40;
+  --ink: #6E8FA3;        /* light steel blue (was #181614) */
+  --ember: #82A769;      /* soft sage (was #D4471C) */
+  --ember-deep: #5C7E4B; /* darker sage (was #A8330F) */
+  --ember-warm: #9DBE89; /* lighter sage (was #E86A40) */
   --muted: #8A857E;
   --muted-deep: #5C5851;
+
+  /* default paper variant: cool */
+  --paper: #F5F4F0;
+  --paper-deep: #ECEAE3;
+  --paper-warm: #E8E5DD;
 
   --font-serif: var(--font-fraunces), Georgia, serif;
   --font-mono: var(--font-dm-mono), ui-monospace, monospace;
@@ -15,6 +18,18 @@
   --font-sinhala-serif: var(--font-noto-sinhala), "Iskoola Pota", "Nirmala UI", serif;
 
   --easing: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+[data-paper="warm"] {
+  --paper: #FBF6EB;
+  --paper-deep: #F4EFE3;
+  --paper-warm: #F0EAD9;
+}
+
+[data-paper="near"] {
+  --paper: #FCFBF8;
+  --paper-deep: #F5F2EC;
+  --paper-warm: #F1EDE3;
 }
 
 * { box-sizing: border-box; }
