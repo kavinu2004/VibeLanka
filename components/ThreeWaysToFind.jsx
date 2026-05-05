@@ -16,7 +16,7 @@ export default function ThreeWaysToFind() {
           tagColor={tokens.ink}
           title="Map"
           subtitle="The must-visits, by area."
-          description="Open the app, tap your area chip — South Coast, Ella, Colombo, Kandy, Arugam Bay. The map redraws around you. Pins are editorial picks. Time-of-day filter shows what's open right now."
+          description="Editorial picks, geo-anchored. Tap a coast, see what's there."
           metric="Editorial · 5 areas"
         />
         <FindBlock
@@ -24,7 +24,7 @@ export default function ThreeWaysToFind() {
           tagColor={tokens.ember}
           title="Trending"
           subtitle="Where everyone is, right now."
-          description="Live crowd density. Heat bars show relative count. Not paid. Not influenced by reviews. Just: where is the room actually full tonight."
+          description="Live signal from venues, partners, and the calendar. What's drawing attention now."
           metric="Live · updates every 2 min"
         />
         <FindBlock
@@ -32,7 +32,7 @@ export default function ThreeWaysToFind() {
           tagColor={tokens.mutedDeep}
           title="Featured"
           subtitle="One slot per category, per area."
-          description="Paid placement, clearly marked SPONSORED. We vet every venue before they take a slot — bad food doesn't get on this page. One per category per area, so the page never bloats."
+          description="Partner-supported placement. Curated, not auctioned."
           metric="Curated · paid placement"
         />
       </div>
