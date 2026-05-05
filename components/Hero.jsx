@@ -20,9 +20,10 @@ export default function Hero() {
       </h1>
 
       <p className={styles.sub}>
-        Vibe Lanka tracks where Sri Lanka is going right now: bars, cafés,
-        community gatherings across the south coast strip and beyond. Live
-        updates direct from the venue. Built by Sri Lanka. For the world.
+        Vibe Lanka is how travelers find where to go in Sri Lanka — tonight,
+        this weekend, this season. Not a listings page. A live, edited feed
+        of the venues, parties, and pop-ups that locals are showing up for.
+        Built for the trip you didn&apos;t know you could plan.
       </p>
 
       <div className={styles.actions}>
