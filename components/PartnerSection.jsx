@@ -11,7 +11,7 @@ const ITEMS = [
 export default function PartnerSection() {
   return (
     <section className={styles.section} id="partner">
-      <SectionMeta number="05" label="For venues" mode="inverted" />
+      <SectionMeta number="04" label="For venues" mode="inverted" />
       <div className={styles.grid}>
         <div>
           <h2 className={styles.title}>

@@ -41,8 +41,7 @@ export default function CTA() {
         <em className={styles.italic}>the bay.</em>
       </h2>
       <p className={styles.copy}>
-        Free. iOS and Android. Built in Colombo, fed by the south coast,
-        going wider every month.
+        Free. iOS and Android. Sri Lanka first.
       </p>
 
       <form className={styles.form} onSubmit={onSubmit} noValidate>

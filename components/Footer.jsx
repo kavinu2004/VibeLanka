@@ -61,7 +61,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className={styles.credits}>
           <span className={styles.credit}>© Vibe Lanka 2026 · Made on the bay</span>
-          <span className={styles.credit}>Yaka illustration by Methni</span>
+          <span className={styles.credit}>Yaka illustration by Luca</span>
         </div>
         <span className={styles.live}>
           <span className={`${styles.liveDot} vl-pulse-dot`} />

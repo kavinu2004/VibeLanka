@@ -8,7 +8,7 @@ import styles from "./SouthCoastShowcase.module.css";
 export default function SouthCoastShowcase() {
   return (
     <section className={styles.section}>
-      <SectionMeta number="02" label="The strip" mode="dark-bg" />
+      <SectionMeta number="01" label="The strip" mode="dark-bg" />
       <div className={styles.grid}>
         <div>
           <h2 className={styles.title}>
