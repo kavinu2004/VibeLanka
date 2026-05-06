@@ -36,6 +36,10 @@
   color: var(--ember);
 }
 
+.body + .body {
+  margin-top: 28px;
+}
+
 .sig {
   font-family: var(--font-mono);
   font-size: 12px;

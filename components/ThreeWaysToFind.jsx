@@ -9,7 +9,7 @@ import styles from "./ThreeWaysToFind.module.css";
 export default function ThreeWaysToFind() {
   return (
     <section className={styles.section} id="trending">
-      <SectionMeta number="03" label="Three ways to find" />
+      <SectionMeta number="02" label="Three ways to find" />
       <div className={styles.grid}>
         <FindBlock
           tag="MAP"

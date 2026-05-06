@@ -1,6 +1,5 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import FeatureExplainer from "@/components/FeatureExplainer";
 import SouthCoastShowcase from "@/components/SouthCoastShowcase";
 import ContextSlide from "@/components/ContextSlide";
 import ThreeWaysToFind from "@/components/ThreeWaysToFind";
@@ -16,7 +15,6 @@ export default function Home() {
       <Nav />
       <Hero />
       <ContextSlide />
-      <FeatureExplainer />
       <SouthCoastShowcase />
       <ThreeWaysToFind />
       <PlanShowcase />

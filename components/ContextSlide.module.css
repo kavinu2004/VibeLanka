@@ -3,7 +3,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 120px 40px;
-  min-height: 720px;
+  min-height: 560px;
   display: flex;
   align-items: center;
 }
@@ -43,8 +43,8 @@
   right: calc(50% - 50vw);
   transform: translateY(-50%);
   width: 52vw;
-  max-width: 760px;
-  height: 720px;
+  max-width: 600px;
+  height: 560px;
   z-index: 1;
   pointer-events: none;
 }

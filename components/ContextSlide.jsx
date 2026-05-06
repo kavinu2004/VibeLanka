@@ -7,19 +7,11 @@ export default function ContextSlide() {
       <div className={styles.wrap}>
         <h2 className={styles.heading}>What you&apos;re signing up for</h2>
         <p className={styles.copy}>
-          Vibe Lanka launches in waves. The site you&apos;re on now is the front
-          door — built so we can share what we&apos;re working toward and gather
-          the people who want in early.
-        </p>
-        <p className={styles.copy}>
-          The app will roll out features as we grow: discovery first (venues,
-          events, who&apos;s playing what tonight), then planning (build a trip
-          from real-time picks), then the social layer.
-        </p>
-        <p className={styles.copy}>
-          Joining the waitlist gets you in before public launch and
-          founding-member access when the app drops. Built by people on the
-          ground, not flown in.
+          Vibe Lanka shows you what&apos;s happening around Sri Lanka, from
+          events and nightlife to food spots, beaches, and hidden gems.
+          Plan your day or night with easy itineraries built around the
+          real vibe. Soon: community voting that helps you and your group
+          land on one spot, not split up.
         </p>
       </div>
       <div className={styles.illustration} aria-hidden="true">
