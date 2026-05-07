@@ -42,3 +42,6 @@ next-env.d.ts
 # editor
 .vscode/
 .idea/
+
+# Codebase snapshot — generated for Build Lead chat, never committed
+codebase-snapshot.md
