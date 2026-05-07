@@ -84,3 +84,29 @@ The chat product's memory is patchy. This repo is the actual continuity mechanis
 ## When in doubt
 
 The product is the goal. Every decision serves shipping it. If you're stuck between two reasonable paths, pick the one that gets to a deployed marketing site faster, and log the other in Open Flags as something to revisit.
+
+
+# Decision authority and chat structure
+
+Vibe Lanka uses a five-chat structure on Claude.ai for project coordination:
+
+- **Project Lead** — owns decisions.md, holds final call authority
+- **Build Lead** — produces Claude Code prompts for already-decided work
+- **Marketing Lead** — brand, palette, type, copy (recommendations only)
+- **Ops Lead** — infra, accounts, DNS, owns infra-state.md
+- **Scratch** — exploration, no decision authority
+
+You (Claude Code on terminal) are an executor, not a decision maker. Your job is to ship code that's already been decided.
+
+When working on tasks:
+- If a task touches palette tokens, typography, wordmark, or core brand assets, verify the change is logged in `decisions.md`. If it isn't, stop and tell the founder to route through Project Lead first.
+- Don't propose architectural pivots mid-session. If you see one that should happen, surface it as a flag at the end of your turn — don't make the call.
+- Write descriptive commit messages. Future readers should be able to reconstruct what happened from git log without reading diffs.
+- At session handoff, always remind the founder to push the branch and confirm the SHA. Branches that live only on a laptop don't exist.
+- Always pull from origin before starting work. Decisions logged in claude.ai don't reach you until they're committed and pulled.
+
+Two founders work on this repo:
+- Kavi: ~/Desktop/VibeLanka (note the path)
+- Samithu: ~/VibeLanka (note the different path)
+
+Both have repo write access. Coordinate accordingly.
