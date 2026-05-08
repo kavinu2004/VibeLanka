@@ -110,7 +110,6 @@ When working on tasks:
 - Always pull from origin before starting work. Decisions logged in claude.ai don't reach you until they're committed and pulled.
 
 Two founders work on this repo:
-- Kavi: ~/Desktop/VibeLanka (note the path)
-- Samithu: ~/VibeLanka (note the different path)
-
+- Kavi: ~/Desktop/VibeLanka
+- Samithu: ~/Desktop/VibeLanka
 Both have repo write access. Coordinate accordingly.
