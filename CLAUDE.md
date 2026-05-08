@@ -51,6 +51,7 @@ The chat product's memory is patchy. This repo is the actual continuity mechanis
 
 **On commits.**
 - Small, labeled, frequent. One feature per commit when reasonable.
+- **Push immediately after every commit, no exceptions.** History this far includes three instances of unpushed commits crossing turns (Samithu's 2026-05-06 brand redirection that had to be reconstructed; snapshot tooling carried twice on 2026-05-07; hairline fix `4575dc7` committed but not pushed and only caught when prod hadn't updated). The cost of `git push origin main` is one command. The cost when missed is debugging deployment confusion that turns out to be no deployment at all.
 - Conventional commits style: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`. Scope in parens when useful: `feat(nav): add Coasts dropdown keyboard support`.
 - Don't bundle unrelated changes. If you find a bug while working on a feature, either fix it as a separate commit or flag it and move on.
 
@@ -69,6 +70,9 @@ The chat product's memory is patchy. This repo is the actual continuity mechanis
 - You're excellent at frontend, design systems, React/Next.js, motion, type systems, component composition.
 - You're competent at PostgreSQL/PostGIS, Supabase, common API and auth patterns.
 - You are *not* a specialist in: Sri Lankan PDPA, payment rails for the Sri Lankan market, production security architecture, GIS at scale, trademark/IP. When questions cross into these areas, say so. Don't bluff.
+
+**On diagnostics.**
+- If a browser picker can't select an apparent visual element, suspect non-DOM causes (image content, SVG content, baked-in artifacts) before deeper CSS hunts. Established 2026-05-07 after a multi-hour grey-hairline diagnostic chase that produced three legitimate CSS improvements but did not address the actual bug (a baked-in pixel artifact in `yaka.png`).
 
 ---
 
