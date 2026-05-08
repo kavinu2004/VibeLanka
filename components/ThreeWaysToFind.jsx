@@ -25,7 +25,7 @@ export default function ThreeWaysToFind() {
           title="Trending"
           subtitle="Where everyone is, right now."
           description="Live signal from venues, partners, and the calendar. What's drawing attention now."
-          metric="Live · updates every 2 min"
+          metric="Tonight · curated"
         />
         <FindBlock
           tag="FEATURED"
@@ -44,7 +44,7 @@ export default function ThreeWaysToFind() {
             TRENDING NOW · LIVE
           </span>
           <span className={styles.previewMeta}>
-            Updated 2m ago · <LiveClock />
+            <LiveClock />
           </span>
         </div>
         <p className={styles.previewNote}>TRENDING IS NOT PAID</p>

@@ -24,7 +24,7 @@ export default function SouthCoastShowcase() {
             <div className={styles.stats}>
               <Stat value="7" label="towns" />
               <Stat value="42 km" label="of coast" />
-              <Stat value="1,124" label="now in Hiri" sub="updated 2m ago" />
+              <Stat value="1,124" label="now in Hiri" />
             </div>
           </div>
 
