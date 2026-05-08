@@ -1,8 +1,11 @@
 .section {
+  background: var(--paper-deep);
+}
+
+.inner {
   max-width: 1400px;
   margin: 0 auto;
   padding: 120px 40px;
-  background: var(--paper-deep);
 }
 
 .grid {
@@ -65,7 +68,7 @@
 }
 
 @media (max-width: 768px) {
-  .section { padding: 60px 20px; }
+  .inner { padding: 60px 20px; }
   .grid { gap: 32px; margin-bottom: 48px; }
   .title { font-size: clamp(48px, 12vw, 88px); }
   .copy { font-size: 16px; margin: 24px 0; }
