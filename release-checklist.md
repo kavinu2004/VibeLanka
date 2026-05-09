@@ -1,6 +1,6 @@
 # Vibe Lanka — Release Checklist
 
-Last updated: 2026-05-09
+Last updated: 2026-05-08
 
 This file tracks remaining work to ship Vibe Lanka. The near-term milestone is **marketing site formal launch** — the point where we actively promote the site and treat the waitlist as live capture. Track 2 (the actual app build) is logged at the bottom for visibility but not actively tracked here.
 
@@ -9,6 +9,8 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 - When claiming an item, move it to "In progress" and add your name as Owner
 - When done, move it to "Done" with the commit SHA, your name, and date
 - Re-upload this file to all five Projects after every commit
+
+**Status as of 2026-05-08:** Marketing site is *substantively* structurally done. Track 2 kickoff is unblocked. Remaining marketing-site items run in parallel with early Track 2 work. See "Ready to ship pending assets" and "Pre-launch hygiene" for what's left.
 
 ---
 
@@ -20,120 +22,78 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 
 ---
 
-## Ready to pick up
+## Ready to ship pending assets
 
-*(actionable now, no decision needed first)*
+*(work is unblocked; specs locked; ships immediately when external dependencies — assets, photos — land)*
 
-### Visual / Asset
+- [ ] **OG image (`public/og.svg`).** Marketing Lead spec locked 2026-05-08. Build Lead wire-up prompt pre-written. Composition: 1200×630, paper `#F5F4F0` background. Left two-thirds: DM Mono kicker `LIVE · 06°55′N 80°48′E` in muted, then "The bay, tonight." in Fraunces (line break honored, "The bay," in `#177B9C`, "tonight." italic in `#9C0505`), then "Vibe ලංකා" wordmark at ~48-56px. Right one-third: South Coast strip wave rotated vertical, bleeding off right and bottom edges, seven heat-graded dots from `lib/data/coast.js` (Hiriketiya at bottom). Source data must match current `lib/data/coast.js` values; regenerate if data changes.
+  - Owner: unclaimed (founder in Figma with Fraunces installed, or Luca production)
+  - Production path: free Figma tier sufficient since not using MCP. Export as SVG. Ships in 30 minutes once asset lands.
+  - Wire-up: Build Lead adds `openGraph.images` array and `twitter` section to `app/layout.jsx` metadata, points at `/og.svg`.
 
-- [ ] **Salt House image resolution.** Replace `public/images/venues/salt-house.jpeg` (currently 400×300, below retina sharpness) with a full-resolution original from the founder.
-  - Owner: unclaimed
-  - Notes: card slot is ~462px wide × 360px tall on desktop, full-width on mobile
+- [ ] **Favicon refinement (`app/icon.svg`).** Marketing Lead spec locked 2026-05-08, option (a) — Fraunces italic V baked into SVG. Same axes as nav wordmark (`opsz` 144, `SOFT` warm, italic). Composition: ember V on paper square (flipped from placeholder's paper V on ember). Validate light + dark browser tab visibility before shipping.
+  - Owner: unclaimed (founder pulls glyph via Glyphr Studio / FontForge / Figma with Fraunces, or Luca)
+  - Production path: pull glyph from Fraunces variable font at correct axes, output as `<path>` in SVG. Total under 5KB. Ships in 5 minutes once asset lands.
 
-- [ ] **Source remaining venue photos.** Four featured venues still on Unsplash placeholders: Dots Bay House, Galle Face Green, Kabalana Point, Hideaway. Get founder-owned imagery before public marketing push.
-  - Owner: unclaimed
+- [ ] **Salt House full-resolution photo.** Replace `public/images/venues/salt-house.jpeg` (currently 400×300, blurry on desktop). Card slot is ~462×360 desktop, full-width on mobile.
+  - Owner: unclaimed (founder-sourced)
+  - Confirmed 2026-05-08: not blocking Track 2 kickoff. Runs in parallel.
 
-- [ ] **Yaka source asset optimization.** Current `yaka.png` is 2.4MB (up from 384KB). Request optimized export from Luca (target 600–900KB, no visible quality loss) or commit a 1024px-max-width version. Source weight stays in git history forever once committed.
-  - Owner: unclaimed
-
-### Code / Layout
-
-- [ ] **Section seam pattern: PartnerSection and CTA.** Apply the inner-wrapper pattern from commit `01056de` to `components/PartnerSection.jsx` (dark `--ink` band) and `components/CTA.jsx` (`--paper-warm` band). Both have `max-width: 1400px` + tinted background on the same `<section>` element — same color seam visible at viewports >1400px as the bug already fixed in SouthCoastShowcase.
-  - Owner: unclaimed
-  - Held as separate commits so the pattern can be visually verified across viewport widths and Marketing Lead can sign off on structural changes to two higher-stakes editorial surfaces
-
-### Infra / Operations
-
-- [ ] **Local dev env vars setup.** Add `RESEND_API_KEY` and `RESEND_AUDIENCE_ID` to `.env.local` so `npm run dev` of the waitlist flow works locally. One-time setup per founder machine.
-  - Owner: each founder does on their own machine
-
-- [ ] **Vercel Deployment Protection decision and config.** Decide whether to keep auth-gating on preview URLs (default, slightly safer) or disable it (easier for sharing previews pre-launch). Configure accordingly.
-  - Owner: unclaimed
-  - Notes: production site at `vibelanka.com` is not auth-gated either way; only `*.vercel.app` URLs are affected
+- [ ] **Ceylon Sliders replacement photo.** Current photo has Weligama signage; venue is actually in Ahangama (data files correct as-is). Photo needs founder-sourced replacement that represents the actual Ahangama venue.
+  - Owner: unclaimed (founder-sourced)
+  - Confirmed 2026-05-08: not blocking Track 2 kickoff. Runs in parallel.
 
 ---
 
-## Blocked / awaiting decision
+## Pre-launch hygiene
 
-*(needs Project Lead call before Build Lead can produce a prompt)*
+*(things to verify or polish before formal launch promotion — not blocking Track 2 kickoff)*
 
-- [ ] **Ceylon Sliders Ahangama / Weligama discrepancy.** Photo signage in `public/images/venues/ceylon-sliders.jpeg` says Weligama. Data in `lib/data/places.js` and `lib/data/trending.js` says Ahangama. Must be resolved before launch.
-  - Blocked by: factual confirmation from founder (which town is the venue actually in?)
-  - Likely answer: photo wins (signage is hard evidence) → update data in two files. But needs founder confirmation first.
+- [ ] **Partner program operational readiness.** Inbox monitoring resolved 2026-05-08 (Kavi reads `partners@`/`team@`/`press@`). Two pieces still open:
+  - Response SLA (default suggestion: "within 48h weekdays, longer weekends")
+  - Onboarding flow when a venue replies (vetting questionnaire? rate sheet? case-by-case?)
+  - Owner: bilateral founder discussion
 
-- [ ] **Palette stability check.** Three palette moves in four days (May 3, May 6). Current palette is committed and live. Open question for both founders: is the May 6 palette *the* palette, or a third iteration still cooling? If committed, name it explicitly so future palette changes require "we're reopening" framing rather than landing as a session decision.
-  - Blocked by: deliberate two-founder conversation
-  - Owner: both founders
-
-- [ ] **"Layout flexes to accommodate artwork" precedent.** Forward-binding rule for future Luca deliveries. Marketing Lead recommends layout flexes to artwork; Project Lead notes some surfaces (hero, partner band, CTA) have load-bearing typographic compositions where re-cropping is the correct answer. Need to name what classes of surface get "layout flexes" vs "artwork re-crops."
-  - Blocked by: explicit two-founder sign-off
-  - Owner: both founders
-
-- [ ] **Editorial-vs-structural rule sweep.** Two more `1px solid var(--ink)` borders flagged out-of-scope on 2026-05-07: `.summary` in `PhoneMockup.module.css` (top + bottom rules around STARTS/ENDS/STOPS) and `.features` top in `PlanShowcase.module.css`. May or may not have the same 1px-on-paper issue that drove the CoastStrip and SouthCoastShowcase calls.
-  - Blocked by: Marketing Lead review of whether each rule is structural or decorative
-  - Owner: unclaimed (awaiting Marketing Lead pass)
-
-- [ ] **Trending pillar 2-min cadence claims removal — final copy.** Already partially fixed (commit `f61780c`). Remaining cleanup: confirm replacement strings for any surviving cadence references match the editorial-honesty principle.
-  - Blocked by: Project Lead confirmation that f61780c closed this fully, or identification of remaining surfaces
-  - Notes: was logged as closed on 2026-05-07; verify before checking off
-
-- [ ] **Partner program pitch — operational readiness.** Marketing site has `partners@vibelanka.com` as a contact. Need to define: who reads that inbox, what's the response SLA, what's the actual onboarding flow when a venue replies?
-  - Blocked by: founder decision on partner-flow ownership
+- [ ] **Trademark search for "Vibe Lanka" — Sri Lanka + key tourist-origin markets.** Cheapest specialist consultation, only one with launch-adjacent risk. A few hundred dollars, real trademark lawyer.
   - Owner: unclaimed
+  - Trigger: before formal launch promotion
 
-- [ ] **Hero typography — Mileast vs Fraunces.** Founder testing Mileast Display Serif as candidate replacement for Fraunces in the hero. Decision pending offline comparison.
-  - Blocked by: founder side-by-side test with desktop license
-  - Owner: Kavi (license purchase + offline test)
+- [ ] **Gmail "Send mail as" configuration for partners@/team@/press@.** Forwarding works inbound; replies currently send from `kavinu2004@gmail.com` rather than the alias the venue emailed. Five-minute Gmail settings task.
+  - Owner: Kavi
 
----
+- [ ] **Yaka source asset optimization.** Current `yaka.png` is 2.4MB (up from 384KB). `next/image` handles delivery; source weight stays in git history forever. Request optimized export from Luca (target 600–900KB) or commit a 1024px-max-width version.
+  - Owner: unclaimed (low priority, not blocking)
 
-## Pre-launch hygiene checks
-
-*(things to verify or polish before formal launch announcement)*
-
-- [ ] **OG image generation.** No OG image currently. Aspirational target: editorial OG generated at build time per page. Likely depends on Image Rights resolution (need brand photography to anchor composition).
-  - Blocked by: image rights for featured venues
-
-- [ ] **Favicon refinement.** Current `app/icon.svg` is a placeholder (ember square + serif-fallback italic "V"). Refinement options: bake a Fraunces subset into the SVG, hand-draw a "V" path, or pivot to a non-letterform mark.
-  - Owner: unclaimed
-
-- [ ] **"1,124 now in Hiri" South Coast Stat.** Illustrative seed data, no live source. Cadence claim removed 2026-05-07. Decision deferred until Track 2 blender wiring: heat percentage, illustrative-with-honest-label count, or drop entirely.
-  - Blocked by: Track 2 trending blender architecture
-
-- [ ] **ContextSlide mid-desktop viewport pinch (900–1200px).** New Yaka illustration renders ~57px wider than original. Founder verified at deploy and approved; deliberate eyeball at 1024 / 1100 / 1200 still warranted. Fix if needed: lower `width: 52vw` on `.illustration` in `ContextSlide.module.css` (do not re-crop asset).
-  - Owner: unclaimed (visual QA pass)
-
-- [ ] **Coasts dropdown — illustrated Sri Lanka map.** Currently text list (South / East / West / North + monsoon season). Illustrated map with coast highlights would lift it. v1.1 work — deferred unless map becomes a credibility blocker.
+- [ ] **Coasts dropdown — illustrated Sri Lanka map.** Currently text list with monsoon seasons. Illustrated map would lift it. v1.1 work.
   - Owner: unclaimed (low priority)
 
 ---
 
 ## Operational migrations
 
-*(infra ownership, security, and account hygiene before formal launch)*
+*(infra ownership decisions resolved 2026-05-08 — no migrations needed for now)*
 
-- [ ] **Resend account ownership migration.** Account currently under Kavi's personal Gmail (`kavinu2004@gmail.com`). Migrate to shared/project-owned account (`vibelankaa@gmail.com` or team account) before any of: Samithu joins as full collaborator, project takes payment from partners, founder count exceeds two.
-  - Owner: unclaimed (Ops Lead can scope)
-  - Trigger: any of the three conditions above
+- [x] **2026-05-08** — Vercel + Resend account ownership decided: shared single account (Kavi + Samithu share `kavinu2004` access). Acknowledged tradeoff: no per-founder audit trail, recovery hinges on Kavi's Gmail. Acceptable for two-founder pre-launch. Revisit if third collaborator joins or billing complicates.
 
-- [ ] **Vercel project ownership migration.** Same concern as Resend. `vibe-lanka` project lives under Kavi's personal Vercel account. Migrate to shared/team account on the same triggers.
-  - Owner: unclaimed (Ops Lead can scope)
+- [x] **2026-05-08** — Resend → Supabase waitlist migration deferred to Track 2 trigger. Resend stays through MVP launch. When Supabase is provisioned for Track 2 app data, evaluate migrating waitlist for consolidation.
 
-- [ ] **Email forwarding diagnostic.** Forwarding from `partners@` / `team@` / `press@` → `kavinu2004@gmail.com` may be broken. Cloudflare config or destination verification issue, never fully diagnosed.
-  - Owner: unclaimed (Ops Lead)
+- [x] **2026-05-08** — Vercel Deployment Protection: keep current state. Production open, previews auth-gated. Revisit if sharing preview URLs becomes friction.
+
+- [x] **2026-05-08** — Email forwarding diagnostic resolved. Cloudflare confirms 4 received / 4 forwarded / 0 failed. Inbox monitoring: Kavi.
 
 ---
 
 ## Done
 
-*(keep this section append-only; oldest at top)*
+*(append-only; oldest at top)*
 
 - [x] **2026-05-02** — Track 1 scaffolding: Next.js App Router, per-component file structure, CSS Modules, design tokens as CSS custom properties, next/font for typefaces. Vercel Analytics mounted. Placeholder favicon. Coasts dropdown keyboard accessibility.
 - [x] **2026-05-03** — Brand pivot to steel-blue + terracotta palette (since superseded). Bilingual wordmark "Vibe ලංකා" with Noto Serif Sinhala. PhilosophyBar removed. Three founder venue photos integrated. Trending description honesty fix.
 - [x] **2026-05-04** — Site deployed to production. Custom domain `vibelanka.com` wired via Cloudflare DNS-only CNAME. SSL auto-provisioned. Resend integration end-to-end (audience id `0beb6685-c7af-4e27-a35b-90e8b64ec6f6`). Smoke test passed.
 - [x] **2026-05-06** — Brand redirection: palette to teal-blue `#177B9C` + deep red `#9C0505`. ContextSlide compressed. FeatureExplainer deleted, sections renumbered 01→04. Plan section compressed. Manifesto rewritten ("tourist guides go stale"). Yaka credit corrected to Luca.
-- [x] **2026-05-07** — Six commits: codebase snapshot script (`ab3bbea`), full-bleed inner-wrapper pattern on SouthCoastShowcase (`01056de`), 2-min cadence claims removed (`f61780c`), CoastStrip border removed (`4575dc7`), SouthCoast stats divider softened (`83b23cc`), Yaka asset replaced (`85be228` — actual fix for grey-hairline bug).
-- [x] **2026-05-09** — `CLAUDE.md` updated to reflect Samithu's new repo path `~/Desktop/VibeLanka` (`29a1a24`).
+- [x] **2026-05-07** — Six commits: codebase snapshot script (`ab3bbea`), full-bleed inner-wrapper pattern on SouthCoastShowcase (`01056de`), 2-min cadence claims removed (`f61780c`), CoastStrip border removed (`4575dc7`), SouthCoast stats divider softened (`83b23cc`), Yaka asset replaced (`85be228`).
+- [x] **2026-05-09** — `CLAUDE.md` updated to reflect Samithu's repo path `~/Desktop/VibeLanka` (`29a1a24`).
+- [x] **2026-05-08** — Marketing-site closeout pass. Two commits: PartnerSection + CTA full-bleed pattern (`2869f77`), `--rule-quiet` token introduction + editorial-vs-structural sweep (`a397dc1`). Founder calls finalized: hero typography Fraunces, palette stability committed, "layout flexes" precedent committed, Ceylon Sliders data confirmed, Vercel/Resend ownership shared-account, Vercel Deployment Protection keep, Resend→Supabase deferred to Track 2, email forwarding resolved. ContextSlide pinch verified no-pinch. Marketing Lead OG + favicon specs locked, production deferred to real-tool path.
 
 ---
 
@@ -141,15 +101,18 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 
 *(explicitly punted; do not work on without reopening)*
 
-- [ ] **Dark mode** — its own design + engineering session, ~3-4 hours when prioritized. Not blocking pre-launch.
+- [ ] **Dark mode** — its own design + engineering session, ~3-4 hours when prioritized.
 - [ ] **Custom Mapbox styling** — default styling for launch. Custom only after data validates demand.
 - [ ] **Custom auth flow** — Supabase Auth out-of-the-box for v1.
 - [ ] **Native mobile app** — web-first. Native is post-launch.
-- [ ] **Multi-language UI** — English-primary for v1. Sinhala/Tamil surface elements (greeting cards, festival moments) before full localization.
-- [ ] **Advanced fraud / Sybil detection** — account-bound votes + IP reputation for v1. Device fingerprinting deferred until vote manipulation actually happens.
+- [ ] **Multi-language UI** — English-primary for v1. Sinhala/Tamil surface elements before full localization.
+- [ ] **Advanced fraud / Sybil detection** — account-bound votes + IP reputation for v1.
 - [ ] **Architecture extraction from Next.js API routes** — stays monolithic until load forces the split.
 - [ ] **Phase 3 infrastructure (10k+ users)** — re-evaluate when we get close.
 - [ ] **Per-coast navigation surfaces** — Track 2 work, needs actual product surface first.
+- [ ] **Build-time / runtime OG generation per page** — v1.1 question. Single homepage OG sufficient for now.
+- [ ] **"1,124 now in Hiri" South Coast Stat** — illustrative seed data. Decision deferred until Track 2 blender wiring: heat percentage, illustrative-with-honest-label count, or drop entirely.
+- [ ] **Figma MCP integration for design tooling** — considered 2026-05-08, deferred. Revisit when Track 2 starts producing volume design assets that justify $360/year + setup overhead.
 
 ---
 
@@ -157,11 +120,11 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 
 *(do not YOLO; specialist required before this can ship)*
 
-- [ ] **Sri Lankan PDPA compliance** — Personal Data Protection Act No. 9 of 2022. Data inventory, lawful basis for processing, user rights mechanisms, possible DPO appointment, cross-border transfer rules. Needs Sri Lankan privacy counsel.
-- [ ] **Payment rails for Featured monetization** — Sri Lankan local payment infrastructure differs from Stripe-default assumptions. Needs payments specialist familiar with local market.
-- [ ] **Production security architecture** — when product hits real traffic with real PII, security review is a specialist job.
+- [ ] **Sri Lankan PDPA compliance** — Personal Data Protection Act No. 9 of 2022. Trigger: when processing real user data at scale.
+- [ ] **Payment rails for Featured monetization** — Sri Lankan local payment infrastructure. Trigger: when charging Featured partners.
+- [ ] **Production security architecture** — when product hits real traffic with real PII.
 - [ ] **GIS performance at scale** — PostGIS fine for Phase 1–2. Phase 3 (10k+ users, dense map queries) needs a specialist.
-- [ ] **Trademark / IP for Vibe Lanka name** — verify availability in Sri Lanka and key tourist-origin markets before money goes into the brand.
+- [ ] **Trademark / IP for Vibe Lanka name** — see "Pre-launch hygiene" above. Cheapest of the five, only one with launch-adjacent risk.
 
 ---
 
@@ -179,3 +142,4 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 - Curated-to-live transition design (12 users → 12,000 users visual treatment)
 - Confidence display for sparse votes
 - Phone auth priority decision (v1 vs v2)
+- Resend → Supabase waitlist consolidation (when Supabase provisioned for Track 2)
