@@ -52,6 +52,9 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
 - **Spatial logic:** Editorial generous spacing for narrative surfaces, technical precise spacing for data surfaces. Match the function.
 - **Layout flexes to accommodate artwork (committed 2026-05-08).** When an illustration's aspect ratio shifts on delivery, layout adapts to the artwork rather than re-cropping the asset. Forward-binding default for future Luca deliveries. Originated from the Yaka aspect ratio shift on 2026-05-07; promoted to committed precedent after bilateral founder alignment 2026-05-08.
 - **Forbidden:** Rounded-full pill buttons. Drop shadows on cards. Gradient backgrounds. Three-feature-card grids. Lucide icons as default. Phone-frame mockups around mobile previews (caused a real bug in v1 — collapsed content to zero height — and is a smoothed-average aesthetic choice anyway).
+- **Lift hero copy for derivative surfaces, don't write parallel copy (committed 2026-05-11).** Single source of truth principle. OG taglines, social cards, partner one-pagers lift "The bay, tonight." from the hero rather than writing surface-specific copy. Prevents drift between hero and derivative surfaces; OGs and similar are previews of the site, not parallel marketing.
+- **Background should match the room being entered (committed 2026-05-11).** Any surface that previews the site (OG, share previews, partner-facing mockups) defaults to the site's dominant register — paper — rather than being styled "specially" with ink-tint or third register. The doorway should match the room.
+- **Cultural-weight illustration earns its placement through editorial scaffolding (committed 2026-05-11).** The Yaka belongs to ContextSlide because the manifesto framing and Luca credit make it legible. Stripped of that scaffolding, it risks reading as exotic-Sri-Lanka-decoration. Structural brand elements (South Coast strip wave, wordmark, typographic register) carry standalone — that's the right anchor for OG-style derivative surfaces. Future illustration-driven assets follow the same rule: cultural-weight imagery needs the scaffolding; structural elements stand alone.
 
 ### Design token rules (committed 2026-05-08)
 - **`--rule-quiet`** (`rgba(138, 133, 126, 0.35)`, `--muted` at 0.35 opacity): registered token for muted-grey 1px hairlines on paper backgrounds.
@@ -108,15 +111,13 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
 
 **Founder decisions needed:**
 
-- **Salt House + Ceylon Sliders photo replacement.** Salt House `public/images/venues/salt-house.jpeg` is 400×300 (below retina sharpness for the ~462×360 desktop card slot). Ceylon Sliders photo has Weligama signage and doesn't represent the actual Ahangama venue (data is correct). Both need founder-sourced replacements. Confirmed 2026-05-08: not blocking Track 2 kickoff — runs in parallel during early Track 2 work.
+- **Salt House photo replacement.** `public/images/venues/salt-house.jpeg` is 400×300 (below retina sharpness for the ~462×360 desktop card slot). Founder-sourcing in progress 2026-05-11. Ceylon Sliders replacement shipped 2026-05-11. Not blocking Track 2 kickoff — runs in parallel during early Track 2 work.
 
 - **OG image + favicon production pending.** Marketing Lead specs locked (2026-05-08). Build Lead wire-up prompts pre-written. Founder produces SVGs in Figma with Fraunces installed (free tier sufficient since not using MCP), or Luca produces, or any real-tool path. Ships in 30-minute Build Lead session the moment SVGs land. Not blocking Track 2 kickoff. Chat-direct SVG output considered and rejected: pulling Fraunces glyphs at specific variable-font axis values is a font-tooling task; "approximately Fraunces" on brand-defining typographic surfaces undercuts the editorial-precision the brand has committed to.
 
 - **Partner program operational readiness — partial closure.** Inbox monitoring resolved 2026-05-08 (Kavi reads `partners@`/`team@`/`press@`). Two pieces still open: (a) response SLA — default suggestion is "within 48h weekdays, longer weekends," defensible without over-promising; (b) onboarding flow when a venue replies — vetting questionnaire, rate sheet, case-by-case negotiation. Bilateral founder discussion needed before formal launch promotion. Not blocking Track 2 kickoff.
 
 - **Trademark search for "Vibe Lanka" — Sri Lanka + key tourist-origin markets.** Cheapest of the specialist consultations and the only one with launch-adjacent risk (someone else registers the name first). A few hundred dollars, real trademark lawyer in actual jurisdictions. Worth doing before formal launch promotion. Not blocking Track 2 kickoff.
-
-- **Gmail "Send mail as" configuration.** Forwarding works inbound (verified 2026-05-08); replies currently send from `kavinu2004@gmail.com` rather than the alias the venue emailed. Five-minute Gmail settings task to fix the reply-from address. Not blocking, but worth doing before any partner replies happen.
 
 - **Coasts dropdown — illustrated Sri Lanka map.** v1.1 work. Currently the Coasts dropdown is a text list (South / East / West / North + monsoon season). An illustrated map of Sri Lanka with coast highlights would lift it. Deferred unless the map becomes a credibility blocker.
 
@@ -211,3 +212,23 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
   Aligned: Kavi this session. Samithu looped in.
 
 - **2026-05-08 (Marketing Lead OG + favicon spec produced; production deferred to real-tool path).** Marketing Lead delivered tight specs for both the OG image (1200×630, paper background, "The bay, tonight." in Fraunces with line break, South Coast strip wave rotated vertical with seven heat-graded dots) and the favicon (option (a) — Fraunces italic V baked into SVG, same axes as nav wordmark). Chat-direct SVG output considered and rejected: pulling Fraunces glyphs at specific variable-font axis values is a font-tooling task. Both assets logged in `release-checklist.md` under "ready to ship pending assets" — Marketing Lead spec is locked, Build Lead wire-up prompt pre-written, ships in a 30-minute session the moment real-tool-produced SVGs land. Aligned: Kavi this session, Samithu looped in.
+- **2026-05-11 (operational consolidation + hygiene pass).** Project structure consolidated and three operational items closed.
+
+  Project consolidation: Five Claude Projects collapsed to two. The four planning-and-build Projects (Project Lead, Build Lead, Marketing Lead, Checklist Lead) and Scratch consolidated into a single "Vibe Lanka" Project. Ops Lead remains in its own separate Vibe Lanka - Ops Project for operational isolation (credentials, account ownership, infrastructure decisions). Role invocation moved from Project-level system prompts to chat-level invocation against a shared `roles.md` in the consolidated Project's knowledge — start each new chat with the role name as the first line. Memory snapshots from the four pre-consolidation role chats preserved as `<role>-memory-2026-05-09.md` files in project knowledge. Original Projects archived (not deleted) for recovery.
+
+  Considered and rejected:
+  - Single consolidated Project including Ops — rejected because Track 2 will fan out Ops's surface (Supabase, payments, PDPA), and isolating credential-handling chats from planning-and-build chats is operationally cleaner.
+  - Keeping the five-Project structure — rejected because the file re-upload friction (every substantive session re-uploaded 4 files × 5 Projects = 20 upload actions) wasn't paying back the role isolation benefit, especially since all five Projects carried the same reference files.
+
+  Aligned: Both founders. Samithu proposed the pattern (imported from PilotOS); Kavi drove the execution.
+
+  Three editorial voice principles applied across Track 1 promoted to committed (see Section 2 Aesthetic system):
+  - Lift hero copy for derivative surfaces, don't write parallel copy
+  - Background should match the room being entered
+  - Cultural-weight illustration earns its placement through editorial scaffolding
+
+  Other items resolved this session:
+  - **Gmail "Send mail as" configuration shipped** for `partners@`, `team@`, `press@` aliases (all routing through `vibelankaa@gmail.com` via Gmail SMTP with app password). Reply behavior set to "Reply from the same address the message was sent to." Tested end-to-end. Closes the Open Flag from 2026-05-08.
+  - **Ceylon Sliders photo replaced** with correct Ahangama venue image (commit `37a1c21`). Closes half of the Salt House + Ceylon Sliders Open Flag.
+
+  Aligned: Kavi this session, Samithu looped in.

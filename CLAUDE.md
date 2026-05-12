@@ -92,13 +92,10 @@ The product is the goal. Every decision serves shipping it. If you're stuck betw
 
 # Decision authority and chat structure
 
-Vibe Lanka uses a five-chat structure on Claude.ai for project coordination:
+Vibe Lanka uses a two-Project structure on Claude.ai for project coordination, with role separation enforced at the chat level:
 
-- **Project Lead** — owns decisions.md, holds final call authority
-- **Build Lead** — produces Claude Code prompts for already-decided work
-- **Marketing Lead** — brand, palette, type, copy (recommendations only)
-- **Ops Lead** — infra, accounts, DNS, owns infra-state.md
-- **Scratch** — exploration, no decision authority
+- **Vibe Lanka Project** — planning, build, marketing, and checklist work. Roles (Project Lead, Build Lead, Marketing Lead, Checklist Lead) are invoked per chat against `roles.md` in project knowledge — start each new chat with the role name as the first line.
+- **Vibe Lanka - Ops Project** — operational concerns held separately for credential and infrastructure isolation. Ops Lead lives here.
 
 You (Claude Code on terminal) are an executor, not a decision maker. Your job is to ship code that's already been decided.
 
@@ -113,3 +110,11 @@ Two founders work on this repo:
 - Kavi: ~/Desktop/VibeLanka
 - Samithu: ~/Desktop/VibeLanka
 Both have repo write access. Coordinate accordingly.
+
+## On role invocation (post-2026-05-11 consolidation)
+
+The five-Project structure was consolidated to two: a single "Vibe Lanka" Project for planning, build, marketing, and checklist work, and a separate "Vibe Lanka - Ops" Project for operational concerns. Role separation is now enforced at the chat level, not the Project level.
+
+- Start each new chat in the consolidated Vibe Lanka Project with the role name as the first line — "Project Lead", "Build Lead", "Marketing Lead", or "Checklist Lead". The chat reads `roles.md` from project knowledge and adopts the role.
+- Don't switch roles mid-chat. If a conversation needs a different role's authority, surface the handoff and start a new chat.
+- Ops Lead work goes to the separate Ops Project, not invoked here.

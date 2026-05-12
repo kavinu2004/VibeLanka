@@ -1,6 +1,6 @@
 # Vibe Lanka — Release Checklist
 
-Last updated: 2026-05-08
+Last updated: 2026-05-11
 
 This file tracks remaining work to ship Vibe Lanka. The near-term milestone is **marketing site formal launch** — the point where we actively promote the site and treat the waitlist as live capture. Track 2 (the actual app build) is logged at the bottom for visibility but not actively tracked here.
 
@@ -8,9 +8,9 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 - Move items between sections as their state changes
 - When claiming an item, move it to "In progress" and add your name as Owner
 - When done, move it to "Done" with the commit SHA, your name, and date
-- Re-upload this file to all five Projects after every commit
+- Re-upload this file to the consolidated Vibe Lanka Project and the Vibe Lanka - Ops Project after every commit
 
-**Status as of 2026-05-08:** Marketing site is *substantively* structurally done. Track 2 kickoff is unblocked. Remaining marketing-site items run in parallel with early Track 2 work. See "Ready to ship pending assets" and "Pre-launch hygiene" for what's left.
+**Status as of 2026-05-11:** Marketing site is *substantively* structurally done. Track 2 kickoff is unblocked. Remaining marketing-site items run in parallel with early Track 2 work. See "Ready to ship pending assets" and "Pre-launch hygiene" for what's left.
 
 ---
 
@@ -39,10 +39,6 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
   - Owner: unclaimed (founder-sourced)
   - Confirmed 2026-05-08: not blocking Track 2 kickoff. Runs in parallel.
 
-- [ ] **Ceylon Sliders replacement photo.** Current photo has Weligama signage; venue is actually in Ahangama (data files correct as-is). Photo needs founder-sourced replacement that represents the actual Ahangama venue.
-  - Owner: unclaimed (founder-sourced)
-  - Confirmed 2026-05-08: not blocking Track 2 kickoff. Runs in parallel.
-
 ---
 
 ## Pre-launch hygiene
@@ -57,9 +53,6 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 - [ ] **Trademark search for "Vibe Lanka" — Sri Lanka + key tourist-origin markets.** Cheapest specialist consultation, only one with launch-adjacent risk. A few hundred dollars, real trademark lawyer.
   - Owner: unclaimed
   - Trigger: before formal launch promotion
-
-- [ ] **Gmail "Send mail as" configuration for partners@/team@/press@.** Forwarding works inbound; replies currently send from `kavinu2004@gmail.com` rather than the alias the venue emailed. Five-minute Gmail settings task.
-  - Owner: Kavi
 
 - [ ] **Yaka source asset optimization.** Current `yaka.png` is 2.4MB (up from 384KB). `next/image` handles delivery; source weight stays in git history forever. Request optimized export from Luca (target 600–900KB) or commit a 1024px-max-width version.
   - Owner: unclaimed (low priority, not blocking)
@@ -94,6 +87,7 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 - [x] **2026-05-07** — Six commits: codebase snapshot script (`ab3bbea`), full-bleed inner-wrapper pattern on SouthCoastShowcase (`01056de`), 2-min cadence claims removed (`f61780c`), CoastStrip border removed (`4575dc7`), SouthCoast stats divider softened (`83b23cc`), Yaka asset replaced (`85be228`).
 - [x] **2026-05-09** — `CLAUDE.md` updated to reflect Samithu's repo path `~/Desktop/VibeLanka` (`29a1a24`).
 - [x] **2026-05-08** — Marketing-site closeout pass. Two commits: PartnerSection + CTA full-bleed pattern (`2869f77`), `--rule-quiet` token introduction + editorial-vs-structural sweep (`a397dc1`). Founder calls finalized: hero typography Fraunces, palette stability committed, "layout flexes" precedent committed, Ceylon Sliders data confirmed, Vercel/Resend ownership shared-account, Vercel Deployment Protection keep, Resend→Supabase deferred to Track 2, email forwarding resolved. ContextSlide pinch verified no-pinch. Marketing Lead OG + favicon specs locked, production deferred to real-tool path.
+- [x] **2026-05-11** — Bundled session: Ceylon Sliders image replaced (`37a1c21`); Gmail Send-mail-as configured for all three aliases (`partners@`, `team@`, `press@`) routing through vibelankaa@gmail.com via SMTP app password; project consolidation completed (five Projects → two: consolidated Vibe Lanka + standalone Ops); three editorial voice principles promoted to Aesthetic system in `decisions.md`.
 
 ---
 
