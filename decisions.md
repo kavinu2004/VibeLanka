@@ -137,6 +137,14 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
 
 - **Dark mode (system preference detection) deferred to its own design+engineering session.** `prefers-color-scheme: dark` detection is technically straightforward but requires a designed dark palette parallel to the current light palette — not just CSS variable swaps. Estimated 3–4 hours design + engineering when prioritized. Not blocking pre-launch.
 
+- **Sprint cadence and Demo 1 timing — explicitly de-prioritized.** Both founders working full-time, no fixed sprint length, no fixed Demo 1 date. Track 2 progresses at the pace it progresses; "sprint done" is when staging deploys behind a flag pass the end-to-end demo flow. Not a blocker; logged so the absence of a cadence is itself the documented decision rather than an oversight.
+
+- **Track 2 tool picks pending (not blocking Sprint 1 start).**
+  - Analytics tool: PostHog recommended in the kickoff conversation, not yet decided. Trigger to decide: before any user-facing instrumentation lands.
+  - Partner profiles tooling: Retool/Appsmith MVP vs manual Supabase admin. Trigger: when partner onboarding goes beyond founder-only.
+  - "Voting should be ready to go" — interpretation pending. Does this mean voting UI shipped in Sprint 1 (currently checklist position) or voting actually open to real users? Resolve at Sprint 1 scope lock.
+  - "Weather Tab for venues/places" — clarification pending. Is this a UI surface (a Weather tab in venue detail), a data-only contribution to trending, or something else? Resolve before D-004 weather-data work begins.
+
 **Specialist consultations required (do not YOLO):**
 - **Sri Lankan PDPA (Personal Data Protection Act No. 9 of 2022).** Compliance requires data inventory, lawful basis for processing, user rights mechanisms, possible DPO appointment, cross-border transfer rules. Trigger: when processing real user data at scale.
 - **Payment rails for Featured monetization.** Sri Lankan local payment infrastructure differs from Stripe-default assumptions. Trigger: when charging Featured partners.
@@ -232,3 +240,27 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
   - **Ceylon Sliders photo replaced** with correct Ahangama venue image (commit `37a1c21`). Closes half of the Salt House + Ceylon Sliders Open Flag.
 
   Aligned: Kavi this session, Samithu looped in.
+
+- **2026-05-20 (Track 2 kickoff backfill).** Track 2 kickoff decisions from the 2026-05-13 bilateral conversation and the 2026-05-20 ownership split, logged here as D-001 through D-010. The decision-ID convention (D-008 below) starts at D-001 with the first Track 2 entry; Track 1 is not backfilled into the D-### scheme. These entries codify what was decided in conversation and in the four photos uploaded 2026-05-13.
+
+  Aligned: Both founders. Kavi confirmed 2026-05-20 in Project Lead session. Samithu signed off async.
+
+  - **D-001 — V1.0 scope.** South coast only. English only. Tourist-primary audience. Product scope is signal-vs-noise on venues, events, tourist spots, and local legends. Live counts from venues, live ratings, and heatmap clusters are explicitly deferred from V1.0.
+
+  - **D-002 — Auth for V1.0.** Email + Google OAuth. Post-browse-with-verify pattern: users can browse before authenticating, and auth is prompted when they take an account-bound action (voting). Auth before browse remains permitted as an option.
+
+  - **D-003 — Schema baseline.** Core tables: `users`, `places`, `events`, `partners`, `DJs`. Events have foreign key to places (per the 2026-05-05 venues+events co-primary commit). Seeding strategy = mix of real venue data, editorial curation by founders, and manual entry. Specific column-level schema is a Sprint 1 design output, not pre-committed here.
+
+  - **D-004 — Trending blender data sources.** Weights remain 60% editorial / 20% partner / 10% calendar / 10% weather (per the 2026-05-05 commit). Data sources confirmed: **weather** = Open-Meteo (free tier, no key required), **calendar** = Calendarific (Sri Lankan public holidays + Poya days), **editorial** = founder-curated, **partner** = menus, specials, headcount, event details from connected partners. Vote weight stays at 0.0 in v1 per existing committed architecture; surface deferred until ~500–1000 weekly active users in a single neighborhood OR median venue has 5+ votes.
+
+  - **D-005 — Map provider: Mapbox.** Confirmed for v1. Free tier (50k map loads/month cap, comfortable pre-launch). Default styling for v1 launch — custom Mapbox styling stays in § 4 Explicitly Deferred per the existing commit; revisit once data validates demand. Mapbox usage monitored as traction grows.
+
+  - **D-006 — GIS data model: PostGIS.** Spatial backend for area definitions, sub-area structure, and venue geo queries. Hosted via Supabase (which ships PostGIS). Performance specialist consult triggers at Phase 3 (10k+ users, dense map queries) per existing release-checklist entry — PostGIS is sufficient for Phase 1–2.
+
+  - **D-007 — Supabase provisioning sequence.** Supabase provisioned and reachable from a deployed environment before any Sprint 1 code lands (Gate 2 from `release-checklist.md`). The Resend → Supabase waitlist consolidation, previously deferred to "Track 2 trigger" (2026-05-08 commit), executes as part of this provisioning.
+
+  - **D-008 — Decision-ID convention.** Decision IDs are sequential across the whole project, written as `D-###` (three-digit zero-padded). Track 1 decisions are not backfilled into the D-### scheme — they remain in the existing Decision History dated-entry format. D-001 is the first Track 2 entry. New decisions append; IDs never reused. When a decision is superseded, the new entry references the old by ID.
+
+  - **D-009 — Specialist consultations: trigger model.** Four of the five specialist consults deferred until traction triggers fire: **PDPA** (when processing real user data at scale — gates phone-auth fast-follow), **payment rails** (when charging Featured partners), **production security architecture** (real traffic with real PII), **GIS performance at scale** (Phase 3, 10k+ users). **Trademark consult is elevated to pre-Demo-1** — Sri Lanka + key tourist-origin markets, a few hundred dollars, real lawyer in actual jurisdictions. Launch-adjacent risk justifies the early spend. Trademark stays in `release-checklist.md` Pre-launch hygiene with the elevated trigger.
+
+  - **D-010 — Track 2 ownership split.** Samithu owns the backend + data cluster: Supabase setup, schema design, auth flow, voting backend, seed/curated data layer, trending blender plumbing. Kavi owns the GIS cluster: location/area data model, Mapbox integration, venue geo queries. Kavi leads frontend (map screen, venue detail, voting UI, confidence display, location switcher, pre-map editorial blurb, auth screens UI, empty-Featured state) with Samithu splitting in where useful. Shared/setup rows (repo + deploy pipeline, Sprint-1 demo assembly) flagged B in the checklist. **Ownership rule: structural work (backend, GIS) stays single-owner — don't split structural work across two people mid-sprint. Frontend can be shared freely.**
