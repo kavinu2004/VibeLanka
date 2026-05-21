@@ -49,12 +49,12 @@ create table areas (
   -- wgs84 (srid 4326). geography (not geometry) so st_dwithin distance
   -- arguments are in meters, not degrees.
   -- nullable during path b scaffold; populated by a follow-up migration.
-  center geography(Point, 4326),
+  center extensions.geography(Point, 4326),
   -- radius in meters. nullable during path b scaffold; populated alongside
   -- center.
   radius_m integer,
   -- reserved for v1.1 polygon support.
-  boundary_geom geography(Polygon, 4326),
+  boundary_geom extensions.geography(Polygon, 4326),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   -- scaffold state (center + radius both null) is intentionally allowed for
@@ -106,7 +106,7 @@ create table places (
   slug text unique not null,
   name text not null,
   -- the spatial column. wgs84 geography for meter-based queries.
-  location geography(Point, 4326) not null,
+  location extensions.geography(Point, 4326) not null,
   -- denormalized fk per decision (b): the spatial trigger populates this at
   -- write time. nullable because the helper may return null if the point
   -- falls outside every populated area (or if no areas have coordinates yet
@@ -137,7 +137,7 @@ execute function trg_set_updated_at();
 -- gets assigned to hiriketiya, not dickwella or south coast (larger circles
 -- that also contain it). same rule handles dalawella inside the unawatuna
 -- bay system, rumassala adjacent to galle, etc.
-create or replace function resolve_area_id(loc geography)
+create or replace function resolve_area_id(loc extensions.geography)
 returns uuid
 language sql
 stable
@@ -147,7 +147,7 @@ as $$
   where boundary_type = 'circle'
     and center is not null
     and radius_m is not null
-    and st_dwithin(center, loc, radius_m)
+    and extensions.st_dwithin(center, loc, radius_m)
   order by radius_m asc
   limit 1;
 $$;
