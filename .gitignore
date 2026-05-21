@@ -54,3 +54,6 @@ codebase-snapshot.md
 
 # Script output (review locally, don't commit raw geocode results)
 scripts/output/
+
+# Supabase CLI local link state (per-machine, not credentials)
+supabase/.temp/
