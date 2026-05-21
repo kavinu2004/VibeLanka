@@ -272,3 +272,15 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
   Aligned: Kavi 2026-05-20 (Project Lead session). Samithu signed off async on the broader Track 2 kickoff backfill; D-011 follows the same scope spirit.
 
   - **D-011 — Hero geography vs. product geography.** Track 1's seven-town strip (Mirissa → Hiriketiya in `lib/data/coast.js`) is the marketing-site **hero geography** — a curated editorial subset for the homepage. Track 2's spatial seed is **product geography** — the full set of named tourist areas along the south coast from Beruwala (west) to Mattala (east). The strip is a subset of the product geography; strip towns reference the same `areas` rows as their product-geography counterparts. Track 1's `lib/data/coast.js` stays unchanged as the marketing-site source of truth. 34 sub-areas + 1 parent ("South Coast"). Migration scaffolds names, slugs, and parent_id with NULL coordinates (Path B per founder call 2026-05-20); coordinates land in a follow-up migration.
+
+- **2026-05-20 (D-012 — Google Maps Platform as data acquisition layer).** Operational and architectural decision around Google Maps Platform usage in Track 2.
+
+  Aligned: Kavi 2026-05-20 (Project Lead session). Samithu pending sign-off — bundled into this commit because the coordinate-population script is the first use of the API and delaying the decision entry past first use creates audit drift.
+
+  - **D-012 — Google Maps Platform as data acquisition layer.** Google Cloud account provisioned with billing enabled, **pay-as-you-go pricing model** (not subscription). $410 new-customer trial credit applies (90-day window). Single API key generated, restricted to: Geocoding, Places, Distance Matrix, Directions APIs. Application restriction: **None** (intentional — this is the local-dev/scripting key per the two-key policy below). Used for: (i) coordinate population of the south coast product geography (this commit's script); (ii) venue seeding for Sprint 1 curated data layer (Places API); (iii) Planner screen travel-time engine (Distance Matrix + Directions, later sprint). **Not** a map provider — D-005 (Mapbox) stands. **Not** a PostGIS replacement — D-006 stands. Editorial layer (founders) is the corrective above Google's baseline.
+
+    **Two-key separation policy:** local-dev/scripting key (this one, no client restriction, used from local laptops only) and deployed-server key (future, IP-restricted to Vercel egress ranges, used by deployed Next.js API routes) are separate keys. Server key created when first deployed code calls Google APIs (no current need; Track 2 frontend doesn't yet wire Google APIs into runtime). A leak in one key doesn't cascade to the other.
+
+    **Budget alert configured.** Trigger to revisit subscription plan: MVP launch with predictable traffic, or trial credit depletion approaching faster than expected.
+
+    **Account ownership:** shared single account per existing Vercel/Resend precedent (2026-05-08 commit). Tradeoffs acknowledged: no per-founder audit trail, recovery hinges on shared Gmail.

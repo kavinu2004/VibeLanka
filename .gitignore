@@ -51,3 +51,6 @@ next-env.d.ts
 
 # Codebase snapshot — generated for Build Lead chat, never committed
 codebase-snapshot.md
+
+# Script output (review locally, don't commit raw geocode results)
+scripts/output/
