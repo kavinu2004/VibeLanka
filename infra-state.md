@@ -8,9 +8,11 @@ Last updated: 2026-05-21
 ## Supabase (Track 2 — provisioned 2026-05-21)
 
 - **Account:** `vibelankaa@gmail.com` (shared via password manager).
-  Clarifies D-007 — the `kavinu2004@gmail.com` reference in D-007 was the
-  Track 1 Vercel/Resend account; Track 2 infra lands on the dedicated
-  `vibelankaa@gmail.com` already in use for inbox routing (2026-05-11).
+  Track 2 infrastructure account, per D-013 (2026-05-21). Departs from
+  the D-012 (2026-05-20) "shared single account per existing
+  Vercel/Resend precedent (2026-05-08)" framing — that precedent
+  (`kavinu2004@gmail.com`) remains the Track 1 account. D-012 Google
+  Maps Platform alignment is an open question; see D-013 in decisions.md.
 - **Project name:** `vibelanka-track2`
 - **Project ref:** `vvmrqrtzasitgrkpafzj`
 - **Region:** Singapore (`ap-southeast-1`)

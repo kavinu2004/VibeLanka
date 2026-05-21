@@ -284,3 +284,23 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
     **Budget alert configured.** Trigger to revisit subscription plan: MVP launch with predictable traffic, or trial credit depletion approaching faster than expected.
 
     **Account ownership:** shared single account per existing Vercel/Resend precedent (2026-05-08 commit). Tradeoffs acknowledged: no per-founder audit trail, recovery hinges on shared Gmail.
+
+- **2026-05-21 (D-013 — Supabase provisioning executed; Track 2 account precedent updated).** Track 2 Supabase project provisioned, operationally closing Gate 2 sufficiently to unblock Sprint 1 backend work. The "reachable from a deployed environment" half of D-007 stays open against Sprint 1 item #3 (staging pipeline). The Resend → Supabase waitlist consolidation specified in D-007 also stays open, executing with Sprint 1 schema design when the waitlist table shape is decided.
+
+  Aligned: Samithu 2026-05-21 (executor session). Kavi pending sign-off on the account precedent change — Samithu flags async at session close.
+
+  - **D-013 — Supabase provisioning executed; Track 2 account precedent updated.**
+
+    **Provisioning state.** Project `vibelanka-track2` provisioned 2026-05-21 on Supabase free tier, Singapore region (`ap-southeast-1`). PostGIS 3.3 enabled at provisioning (USE_GEOS=1, USE_PROJ=1, USE_STATS=1); `uuid-ossp` and `pgcrypto` verified enabled as Supabase defaults. Project ref: `vvmrqrtzasitgrkpafzj`. Credentials (project URL, anon key, service_role key, pooled + direct connection strings, database password) stored in the shared password manager under `Vibe Lanka — Supabase`. Reachability confirmed via local `psql` from Samithu's machine — `SELECT postgis_version()` returned successfully. Full operational state in `infra-state.md`.
+
+    **Track 2 account precedent.** D-012 (2026-05-20) framed account ownership as "shared single account per existing Vercel/Resend precedent (2026-05-08 commit)" — that precedent is `kavinu2004@gmail.com`. Supabase is provisioned instead on `vibelankaa@gmail.com`, the dedicated Vibe Lanka Gmail already in use for inbox routing per 2026-05-11. From this point forward: `vibelankaa@gmail.com` is the Track 2 infrastructure account; `kavinu2004@gmail.com` remains the Track 1 account (Vercel, Resend). Tradeoff: account boundary across tracks, which adds friction if a service spans both tracks, but creates per-product isolation that simplifies handoff if collaborators join later.
+
+    **Open question — D-012 Google Maps Platform alignment.** D-012 GMP sits on the older `kavinu2004@gmail.com` precedent. Two clean resolutions exist: (a) GMP migrates onto `vibelankaa@gmail.com` for Track 2 account symmetry, or (b) GMP stays on `kavinu2004@gmail.com` and the "Track 2 infra account" rule applies only to Sprint 1+ provisioning, not retroactively. Resolve before any further Track 2 third-party service is provisioned (e.g., PostHog, Calendarific, Open-Meteo if a key is ever needed). Not blocking Sprint 1.
+
+    **D-007 follow-ups still pending.**
+
+    - **Reachable from a deployed environment.** Local `psql` reachability is sufficient to unblock Kavi's GIS work and Sprint 1 schema design. D-007's literal "reachable from a deployed environment" criterion requires Vercel env vars wired and a deployed build loading them successfully. Deferred to Sprint 1 item #3. At that point the founders also decide whether Track 2 deploys onto the existing `vibe-lanka` Vercel project or a new one.
+
+    - **Resend → Supabase waitlist consolidation.** D-007 specified this executes "as part of this provisioning." It has not. Carrying forward — execute when Sprint 1 schema design lands the waitlist table shape, then migrate the existing Resend audience contacts. Until then, Resend remains the waitlist backend per the 2026-05-08 commit.
+
+    **Auth providers** (Google OAuth credentials) not yet configured — configured during the auth flow build (Sprint 1 backend item after schema), not at provisioning time.
