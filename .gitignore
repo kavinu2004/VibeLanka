@@ -28,9 +28,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
+# Environment variables (never commit secrets)
 .env
+.env.local
 .env*.local
+.env.development
+.env.production
+
+# Defensive: catch mis-named secret files
+Important stuf*
 
 # vercel
 .vercel
