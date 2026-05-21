@@ -1,6 +1,6 @@
 # Vibe Lanka — Track 2 Checklist
 
-Last updated: 2026-05-20
+Last updated: 2026-05-21
 
 This file tracks the Track 2 app build. The near-term milestone is **Sprint 1: the map + voting spine on seed data** — open the app, see venues on a scoped South Coast map, tap a pin, cast a vote, watch the percentage move. Everything past Sprint 1 is logged for visibility, not actively tracked here yet.
 
@@ -30,7 +30,7 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 
 ### Backend & data — Samithu
 
-- [ ] **Set up Supabase.** Create the shared account (Kavi's Gmail, free tier), project running before any code.
+- [x] **Set up Supabase.** ✓ 2026-05-21 (Samithu) — see Done section.
 - [ ] **Design the database schema.** Tables for venues, votes, users, areas. Everything else builds on this.
 - [ ] **Build the login / auth flow.** Email / Google sign-in for v1. Account creation, sessions.
 - [ ] **Voting backend.** One account-bound vote per venue per night, percentages computed.
@@ -85,3 +85,8 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 *(append-only; oldest at top)*
 
 - [x] **2026-05-20** — Track 2 ownership split confirmed bilaterally. Samithu takes backend + data cluster (Supabase, schema, auth, voting backend, seed layer, trending blender plumbing). Kavi takes GIS cluster (location data model, Mapbox, venue geo queries) and frontend (map screen, venue detail, voting UI, confidence display, location switcher, editorial blurb, auth screens, empty-Featured state). Shared/setup rows (repo + deploy pipeline, Sprint-1 demo assembly) flagged B. Ownership rule: structural work (backend, GIS) stays single-owner; frontend can be shared freely.
+- [x] **2026-05-21** — Supabase project `vibelanka-track2` provisioned on
+  `vibelankaa@gmail.com`, Singapore region, free tier. PostGIS 3.3 enabled.
+  Credentials in shared password manager. Reachability confirmed via local
+  `psql`. Closes Gate 2. Vercel env wiring deferred to Sprint 1 item #3.
+  Owner: Samithu. See `infra-state.md` for full details.

@@ -1,6 +1,6 @@
 # Vibe Lanka — Release Checklist
 
-Last updated: 2026-05-11
+Last updated: 2026-05-21
 
 This file tracks remaining work to ship Vibe Lanka. The near-term milestone is **marketing site formal launch** — the point where we actively promote the site and treat the waitlist as live capture. Track 2 (the actual app build) is logged at the bottom for visibility but not actively tracked here.
 
@@ -88,6 +88,7 @@ This file tracks remaining work to ship Vibe Lanka. The near-term milestone is *
 - [x] **2026-05-09** — `CLAUDE.md` updated to reflect Samithu's repo path `~/Desktop/VibeLanka` (`29a1a24`).
 - [x] **2026-05-08** — Marketing-site closeout pass. Two commits: PartnerSection + CTA full-bleed pattern (`2869f77`), `--rule-quiet` token introduction + editorial-vs-structural sweep (`a397dc1`). Founder calls finalized: hero typography Fraunces, palette stability committed, "layout flexes" precedent committed, Ceylon Sliders data confirmed, Vercel/Resend ownership shared-account, Vercel Deployment Protection keep, Resend→Supabase deferred to Track 2, email forwarding resolved. ContextSlide pinch verified no-pinch. Marketing Lead OG + favicon specs locked, production deferred to real-tool path.
 - [x] **2026-05-11** — Bundled session: Ceylon Sliders image replaced (`37a1c21`); Gmail Send-mail-as configured for all three aliases (`partners@`, `team@`, `press@`) routing through vibelankaa@gmail.com via SMTP app password; project consolidation completed (five Projects → two: consolidated Vibe Lanka + standalone Ops); three editorial voice principles promoted to Aesthetic system in `decisions.md`.
+- [x] **2026-05-21** — Track 2 Gate 2 closed: Supabase project `vibelanka-track2` provisioned (Samithu, `vibelankaa@gmail.com`, Singapore, free tier). PostGIS 3.3 enabled, reachability confirmed via local `psql`. See `infra-state.md` for full details. Vercel env wiring deferred to Sprint 1 staging pipeline.
 
 ---
 
