@@ -21,7 +21,7 @@ export default function Map() {
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: 'mapbox://styles/mapbox/standard',
       bounds: SOUTH_COAST_BOUNDS,
       fitBoundsOptions: { padding: 40 },
     });
