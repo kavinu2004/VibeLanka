@@ -1,8 +1,8 @@
 # Vibe Lanka — Track 2 Checklist
 
-Last updated: 2026-05-21
+Last updated: 2026-05-22
 
-This file tracks the Track 2 app build. The near-term milestone is **Sprint 1: the map + voting spine on seed data** — open the app, see venues on a scoped South Coast map, tap a pin, cast a vote, watch the percentage move. Everything past Sprint 1 is logged for visibility, not actively tracked here yet.
+This file tracks the Track 2 app build. The near-term milestone is **Sprint 1: the map + intent-signals spine on seed data** — open the app, see venues on a scoped South Coast map, tap a pin, signal intent, watch the share of intent across locations move. Everything past Sprint 1 is logged for visibility, not actively tracked here yet.
 
 Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes frontend + GIS. Samithu takes backend + data. Shared/setup rows are flagged B.
 
@@ -24,18 +24,19 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 
 ---
 
-## Sprint 1 — Map + voting spine
+## Sprint 1 — Map + intent-signals spine
 
 *(the core sprint; everything below ships together as the first demoable end-to-end flow)*
 
 ### Backend & data — Samithu
 
-- [x] **Set up Supabase.** ✓ 2026-05-21 (Samithu) — see Done section.
-- [ ] **Design the database schema.** Tables for venues, votes, users, areas. Everything else builds on this.
-- [ ] **Build the login / auth flow.** Email / Google sign-in for v1. Account creation, sessions.
-- [ ] **Voting backend.** One account-bound vote per venue per night, percentages computed.
+- [x] **Set up Supabase.** ✓ 2026-05-21 (Samithu, D-013) — project `vibelanka-track2` on `vibelankaa@gmail.com`, free tier, Singapore region, PostGIS 3.3 enabled. See Done section + `infra-state.md`.
+- [x] **Design the database schema.** ✓ 2026-05-22 (Samithu, `6d51682`) — `users`, `places` ALTERs, `events`, `partners`, `djs`, `events_djs`, `intents`, `intents_audit` (append-only), `landmarks` (reserved). RLS on every table; policies declared inline. Local apply + promote to Supabase project pending. See Done section.
+- [ ] **Open flag: auth user signup trigger migration.** Without it, signups succeed in `auth.users` but `public.users` mirror row is never created → breaks every downstream FK (especially `intents.user_id`). Must land via a Build Lead chat **before any auth backend work ships.** Owner: pending.
+- [ ] **Build the login / auth flow.** Email / Google sign-in for v1. Account creation, sessions. _Blocked on auth signup trigger above._
+- [ ] **Intents backend.** One account-bound intent per venue per night, percentages of intent share across locations computed.
 - [ ] **Seed / curated data layer.** Load curated venues and tags so the map isn't empty day 1.
-- [ ] **Trending blender plumbing.** Wire the weighted-input structure now, vote weight = 0. Architecture only.
+- [ ] **Trending blender plumbing.** Wire the weighted-input structure now, `intent_weight = 0`. Architecture only.
 
 ### GIS & map data — Kavi
 
@@ -46,9 +47,9 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 ### Frontend & UI — Kavi (split with Samithu where useful)
 
 - [ ] **Map screen (South Coast scoped view).** The default view: scoped map, venue pins. Core sprint-1 surface.
-- [ ] **Venue detail / card.** Tap a pin → venue, vibe tags, vote button.
-- [ ] **Voting UI.** The button + the percentage that visibly moves. The demo moment.
-- [ ] **Confidence display.** Low-confidence treatment for sparse votes — hide % below a threshold.
+- [ ] **Venue detail / card.** Tap a pin → venue, vibe tags, intent button.
+- [ ] **Intent signal UI.** The button + the percentages of intent share across locations that visibly move. The demo moment.
+- [ ] **Confidence display.** Low-confidence treatment for sparse intents — hide % below a threshold.
 - [ ] **Location switcher.** Switch between the 3 in-scope coasts, season-labeled.
 - [ ] **Pre-map editorial blurb.** The short written intro when picking a location, before the map loads.
 - [ ] **Auth screens (sign-in / sign-up UI).** The front of the login flow. Logic is in Backend.
@@ -57,7 +58,7 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 ### Shared / setup — B
 
 - [ ] **Repo + deploy pipeline.** Project setup, staging deploy behind a flag (the "sprint done" bar).
-- [ ] **Sprint-1 demo assembly.** Wiring it end to end: open → see venues → tap → vote → % moves.
+- [ ] **Sprint-1 demo assembly.** Wiring it end to end: open → see venues → tap → signal intent → % of intent share across locations moves.
 
 ---
 
@@ -84,9 +85,6 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 
 *(append-only; oldest at top)*
 
-- [x] **2026-05-20** — Track 2 ownership split confirmed bilaterally. Samithu takes backend + data cluster (Supabase, schema, auth, voting backend, seed layer, trending blender plumbing). Kavi takes GIS cluster (location data model, Mapbox, venue geo queries) and frontend (map screen, venue detail, voting UI, confidence display, location switcher, editorial blurb, auth screens, empty-Featured state). Shared/setup rows (repo + deploy pipeline, Sprint-1 demo assembly) flagged B. Ownership rule: structural work (backend, GIS) stays single-owner; frontend can be shared freely.
-- [x] **2026-05-21** — Supabase project `vibelanka-track2` provisioned on
-  `vibelankaa@gmail.com`, Singapore region, free tier. PostGIS 3.3 enabled.
-  Credentials in shared password manager. Reachability confirmed via local
-  `psql`. Closes Gate 2. Vercel env wiring deferred to Sprint 1 item #3.
-  Owner: Samithu. See `infra-state.md` for full details.
+- [x] **2026-05-20** — Track 2 ownership split confirmed bilaterally. Samithu takes backend + data cluster (Supabase, schema, auth, intents backend, seed layer, trending blender plumbing). Kavi takes GIS cluster (location data model, Mapbox, venue geo queries) and frontend (map screen, venue detail, intent signal UI, confidence display, location switcher, editorial blurb, auth screens, empty-Featured state). Shared/setup rows (repo + deploy pipeline, Sprint-1 demo assembly) flagged B. Ownership rule: structural work (backend, GIS) stays single-owner; frontend can be shared freely.
+- [x] **2026-05-21** — Supabase Gate 2 closed (D-013). Project `vibelanka-track2` provisioned on `vibelankaa@gmail.com` (Track 2 infra account precedent, distinct from Track 1's `kavinu2004@gmail.com`), free tier, Singapore region (`ap-southeast-1`), PostGIS 3.3 enabled at provisioning, `uuid-ossp` + `pgcrypto` verified. Project ref `vvmrqrtzasitgrkpafzj`. Local `psql` reachability confirmed; "reachable from a deployed environment" half of D-007 deferred to Sprint 1 staging pipeline. Resend → Supabase waitlist consolidation deferred to schema-design landing. Auth providers (Google OAuth) configured during auth flow build, not at provisioning. Full operational state in `infra-state.md`.
+- [x] **2026-05-22** — Sprint 1 Module 3 (database schema) shipped: commit `6d51682`, migration `supabase/migrations/20260522100324_create_core_schema.sql` (474 lines). ALTER on `places` (editorial / tag / partner / operational columns; spatial scaffold preserved). 8 new tables: `users`, `events`, `partners`, `djs`, `events_djs` (m:n join), `intents`, `intents_audit` (append-only), `landmarks` (reserved, unpopulated). RLS enabled on every table including `areas` and `places` (the spatial migration left RLS off; this one enables it). Policies declared inline: catalogs read-public + service-role-write; `partners` and `intents_audit` service-role-only on both reads and writes; `intents` user-own + service-role-read-all. Reused `trg_set_updated_at()` and `resolve_area_id()` from spatial migration; added `trg_landmarks_set_area_id()` mirror. `intents_audit` trigger uses `SECURITY DEFINER` with explicit `search_path = public`. Local apply + promote to Supabase project pending.
