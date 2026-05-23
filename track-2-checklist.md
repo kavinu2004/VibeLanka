@@ -1,6 +1,6 @@
 # Vibe Lanka — Track 2 Checklist
 
-Last updated: 2026-05-22
+Last updated: 2026-05-22 (decisions catch-up commit)
 
 This file tracks the Track 2 app build. The near-term milestone is **Sprint 1: the map + intent-signals spine on seed data** — open the app, see venues on a scoped South Coast map, tap a pin, signal intent, watch the share of intent across locations move. Everything past Sprint 1 is logged for visibility, not actively tracked here yet.
 
@@ -40,9 +40,9 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 
 ### GIS & map data — Kavi
 
-- [ ] **Location / area data model.** How South Coast + sub-areas are structured for the scoped map. PostGIS.
-- [ ] **Mapbox integration.** Free tier, default styling. Map rendering with venue pins.
-- [ ] **Venue geo queries.** "Show venues in this scoped area" — the spatial lookups behind the map.
+- [x] **Location / area data model.** ✓ 2026-05-21 (Kavi, `d84ba0f`) — `areas` table with 35 rows (34 sub-areas + 1 parent "South Coast"), PostGIS `geography` columns scaffolded, `resolve_area_id()` helper landed. See Done section. Schema-qualification convention (D-014) and reference-data-in-migrations convention (D-015) established by this work.
+- [ ] **Mapbox integration.** Custom style v2.0.6.1 staged (D-016, moody editorial direction, **pending Samithu cosmetic sign-off**). Map.jsx integration commit pending publish of style URL. Build Lead prompt staged at `build-lead-mapjsx-v2.0.5-custom-coastline-shadow.txt`.
+- [ ] **Venue geo queries.** "Show venues in this scoped area" — the spatial lookups behind the map. Unblocked by `6d51682` (places ALTER added editorial/tag/partner/operational columns; spatial scaffold preserved).
 
 ### Frontend & UI — Kavi (split with Samithu where useful)
 
@@ -87,4 +87,5 @@ Ownership was split from the Work Ownership Sheet on 2026-05-20. Kavi takes fron
 
 - [x] **2026-05-20** — Track 2 ownership split confirmed bilaterally. Samithu takes backend + data cluster (Supabase, schema, auth, intents backend, seed layer, trending blender plumbing). Kavi takes GIS cluster (location data model, Mapbox, venue geo queries) and frontend (map screen, venue detail, intent signal UI, confidence display, location switcher, editorial blurb, auth screens, empty-Featured state). Shared/setup rows (repo + deploy pipeline, Sprint-1 demo assembly) flagged B. Ownership rule: structural work (backend, GIS) stays single-owner; frontend can be shared freely.
 - [x] **2026-05-21** — Supabase Gate 2 closed (D-013). Project `vibelanka-track2` provisioned on `vibelankaa@gmail.com` (Track 2 infra account precedent, distinct from Track 1's `kavinu2004@gmail.com`), free tier, Singapore region (`ap-southeast-1`), PostGIS 3.3 enabled at provisioning, `uuid-ossp` + `pgcrypto` verified. Project ref `vvmrqrtzasitgrkpafzj`. Local `psql` reachability confirmed; "reachable from a deployed environment" half of D-007 deferred to Sprint 1 staging pipeline. Resend → Supabase waitlist consolidation deferred to schema-design landing. Auth providers (Google OAuth) configured during auth flow build, not at provisioning. Full operational state in `infra-state.md`.
+- [x] **2026-05-21** — Spatial layer shipped: areas table + product geography seeded. Three commits: `4b50bf9` (gitignore `supabase/.temp/`), `6fde142` (schema-qualify PostGIS as `extensions.*` — established D-014 convention), `d84ba0f` (consolidated `supabase/migrations/20260520120000_create_areas_and_places_geo.sql` with 35 area rows inline — established D-015 reference-data-in-migrations convention). PostGIS schema-qualification (D-014) and reference-data-lives-in-migrations (D-015) are now project standards. Verification: 35/35 area rows present; Mirissa harbor resolves to `mirissa` sub-area; offshore Galle falls back to `south-coast` parent. Three open questions remaining in `docs/gis-spatial-layer.md`: RLS on `areas` (closed 2026-05-22 by `6d51682`), `resolve_area_id` RPC exposure (open), boundary-edge venue assignment (open). Owner: Kavi.
 - [x] **2026-05-22** — Sprint 1 Module 3 (database schema) shipped: commit `6d51682`, migration `supabase/migrations/20260522100324_create_core_schema.sql` (474 lines). ALTER on `places` (editorial / tag / partner / operational columns; spatial scaffold preserved). 8 new tables: `users`, `events`, `partners`, `djs`, `events_djs` (m:n join), `intents`, `intents_audit` (append-only), `landmarks` (reserved, unpopulated). RLS enabled on every table including `areas` and `places` (the spatial migration left RLS off; this one enables it). Policies declared inline: catalogs read-public + service-role-write; `partners` and `intents_audit` service-role-only on both reads and writes; `intents` user-own + service-role-read-all. Reused `trg_set_updated_at()` and `resolve_area_id()` from spatial migration; added `trg_landmarks_set_area_id()` mirror. `intents_audit` trigger uses `SECURITY DEFINER` with explicit `search_path = public`. Local apply + promote to Supabase project pending.

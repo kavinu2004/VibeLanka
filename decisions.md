@@ -145,7 +145,9 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
   - "Voting should be ready to go" — interpretation pending. Does this mean voting UI shipped in Sprint 1 (currently checklist position) or voting actually open to real users? Resolve at Sprint 1 scope lock.
   - "Weather Tab for venues/places" — clarification pending. Is this a UI surface (a Weather tab in venue detail), a data-only contribution to trending, or something else? Resolve before D-004 weather-data work begins.
 
-- **South coast landmarks layer.** Notable points of interest within the product geography — Dondra Head lighthouse, Mulkirigala Rock Temple, Kandavahari hilltop temple, Bundala National Park ecosystem features, Kataragama (if scope expands to inland religious sites) — are real but not area-definitional. Resolve as either: (a) rows in `places` with a landmark tag, (b) a separate `landmarks` table with its own schema, or (c) deferred entirely until v1.1. Trigger to decide: when first non-venue, non-event place needs to enter the data layer.
+- ~~**South coast landmarks layer.** Notable points of interest within the product geography — Dondra Head lighthouse, Mulkirigala Rock Temple, Kandavahari hilltop temple, Bundala National Park ecosystem features, Kataragama (if scope expands to inland religious sites) — are real but not area-definitional. Resolve as either: (a) rows in `places` with a landmark tag, (b) a separate `landmarks` table with its own schema, or (c) deferred entirely until v1.1. Trigger to decide: when first non-venue, non-event place needs to enter the data layer.~~ **Resolved 2026-05-22** — option (b). Separate `landmarks` table with its own schema landed in commit `6d51682` (Sprint 1 Module 3). Currently reserved and unpopulated; populated when first non-venue, non-event place enters the data layer.
+
+- **Auth signup trigger: `auth.users` → `public.users` mirror.** Opened 2026-05-22. The `public.users` table from commit `6d51682` mirrors `auth.users` but no trigger populates it on signup. Without it, Supabase Auth signups succeed in `auth.users` but `public.users` is never written, breaking every downstream FK — most critically `intents.user_id`. **Blocks all auth backend work.** Must land via Build Lead chat as the first step of the auth-flow build. Owner: whichever founder picks up the auth-flow Sprint 1 backend item.
 
 **Specialist consultations required (do not YOLO):**
 - **Sri Lankan PDPA (Personal Data Protection Act No. 9 of 2022).** Compliance requires data inventory, lawful basis for processing, user rights mechanisms, possible DPO appointment, cross-border transfer rules. Trigger: when processing real user data at scale.
@@ -304,3 +306,75 @@ The marketing site is *substantively* structurally done. Track 2 kickoff is unbl
     - **Resend → Supabase waitlist consolidation.** D-007 specified this executes "as part of this provisioning." It has not. Carrying forward — execute when Sprint 1 schema design lands the waitlist table shape, then migrate the existing Resend audience contacts. Until then, Resend remains the waitlist backend per the 2026-05-08 commit.
 
     **Auth providers** (Google OAuth credentials) not yet configured — configured during the auth flow build (Sprint 1 backend item after schema), not at provisioning time.
+
+- **2026-05-21 morning (D-013 closeout — Kavi sign-off; D-012 GMP alignment resolved).** Kavi signs off on the Track 2 account precedent change committed in the 2026-05-21 D-013 entry above. The open question on D-012 Google Maps Platform alignment is resolved as **option (b): GMP stays on `kavinu2004@gmail.com`. The "Track 2 infra account" rule (`vibelankaa@gmail.com`) applies prospectively from Sprint 1+, not retroactively to D-012.**
+
+  Aligned: Both founders 2026-05-21 morning. Closes the "Kavi pending sign-off" and "Open question — D-012 GMP alignment" flags from the 2026-05-21 D-013 entry.
+
+  Rationale on (b) over (a): GMP is already provisioned and in use for the coordinate population script. Retroactive account migration of an in-use Google Cloud project costs time and creates billing/credit transfer friction with no per-product isolation benefit at this stage. The account-precedent rule is forward-binding from this point.
+
+- **2026-05-21 (D-014 — Schema-qualify PostGIS in Supabase migrations).** Operational decision arising from the first `supabase db push` failure (SQLSTATE 42704 "type 'geography' does not exist"). Supabase isolates PostGIS into the `extensions` schema, and the migration role's `search_path` does not include it.
+
+  Aligned: Both founders 2026-05-21. Closed in-session.
+
+  - **D-014 — Schema-qualify PostGIS references in all Supabase migrations.** All Supabase migrations must schema-qualify PostGIS types and functions as `extensions.geography`, `extensions.ST_MakePoint`, `extensions.ST_DWithin`, etc. `CREATE EXTENSION` and `CREATE INDEX ... USING GIST` remain unqualified — those are unambiguous and the GIST access method is registered at the database level.
+
+    **Path B (`SET search_path` in migrations) considered and rejected.** Schema qualification is more explicit, fails loudly at write time rather than silently at runtime if the role's search_path is ever reset, and matches Supabase's documented migration pattern. Schema-qualification is the project standard for all PostGIS usage in migrations going forward.
+
+    Commit: `6fde142`.
+
+- **2026-05-21 (D-015 — Reference data lives in migrations, not seeds).** Operational decision arising from the second `supabase db push` failure (push succeeded but `areas` table empty). Root cause: the original spec separated reference data into `supabase/seed/` files and treated them as if `db push` would run them — `db push` only runs migrations.
+
+  Aligned: Both founders 2026-05-21. Closed in-session.
+
+  - **D-015 — Reference data (south coast areas) lives in migrations, not seeds.** The 34 south coast sub-areas + 1 parent ("South Coast") consolidate into a single migration file with `INSERT` statements inline. `supabase/seed/` directory deleted entirely — Vibe Lanka does not use Supabase seeds for reference data. Future reference-data additions follow the same pattern: add to a new migration, not a seed file.
+
+    **One-time recovery pattern documented as an explicit exception, not routine.** When the failed second push left the remote in a partially-applied state, recovery required `DELETE FROM supabase_migrations.schema_migrations WHERE version = '<version>'` plus `DROP ... CASCADE` on the affected objects before re-pushing. This pattern is reserved for migration-tracking recovery on a non-production database — never run on production. Production-state recovery is a separate operational playbook (not yet authored).
+
+    Consolidated migration file: `supabase/migrations/20260520120000_create_areas_and_places_geo.sql`.
+
+    Verification: 35/35 area rows present (1 parent + 34 sub-areas). Mirissa harbor (80.4565, 5.9483) resolves to `mirissa` sub-area. Offshore Galle (80.20, 5.95) falls back to `south-coast` parent.
+
+    Three open questions logged in `docs/gis-spatial-layer.md` pending Samithu read: (i) RLS policy on `areas` table, (ii) whether `resolve_area_id` is exposed via RPC or stays internal, (iii) boundary-edge venue assignment when coordinates sit on the line between two sub-areas.
+
+    Commit: `d84ba0f`. Preceded by `4b50bf9` (gitignore `supabase/.temp/`).
+
+- **2026-05-21 evening (D-016 — Custom Mapbox style: editorial dimensional south coast).** Marketing Lead + Specialist mode call on Mapbox map styling. Supersedes the "default styling for v1 launch" half of D-005 — provider commitment (Mapbox, free tier) stands.
+
+  Aligned: Kavi 2026-05-21 evening (Project Lead + Marketing Lead session). **Samithu pending sign-off** on the cosmetic direction — single-founder call by Kavi during evening session, flagged for async review.
+
+  - **D-016 — Custom Mapbox style v2.0.6.1.** South coast renders as a dimensional editorial object: pitched ~50° with 3D terrain, fog, and sky; moody palette (background `#2E2A24`, water `#1F3A42` dusty teal, parks `#3A3F32` deep moss, inverted road hierarchy); Fraunces typography on labels (Fraunces 72pt Italic for major cities, Fraunces 72pt Regular for sub-areas, Fraunces 72pt Italic dim seafoam for water bodies); custom 35-point GeoJSON coastline-shadow LineString registered at runtime in `Map.jsx` (Beruwala → Galle → Mirissa → Matara → Dondra → Hambantota → eastern bound) to avoid inland-water contamination from the standard water source-layer.
+
+    **Supersedes the "default styling" half of D-005.** Map enters a moody editorial register while the marketing site stays paper-warm. The bet: deliberate contrast reads as authored, not discordant. The marketing site is the doorway; the map is the room.
+
+    **Brand expansion logged.** Fraunces was committed for the marketing site only (2026-05-08). Bringing Fraunces to the live map is a deliberate brand-surface expansion, not a session decision. Future map-surface typography decisions reference D-016 as precedent.
+
+    **Editorial overlay register identified as Sprint 1 work, not basemap work.** The "default basic" gap on the v1.3 baseline was diagnosed as missing overlay register, not palette failure. Sprint 1 will add: kicker label (e.g. `06°55'N 80°48'E · LIVE SOUTH COAST`), italic Fraunces place name on tap interaction, brand-styled attribution. Sub-area boundary rendering from the `areas` table is Sprint 1 work. Venue pin design is Sprint 1 work (blocks on Samithu's `places` schema columns — partially unblocked 2026-05-22 by commit `6d51682`, see below). 3D terrain performance on mid-range Android needs verification before mobile ship.
+
+    **Style file:** `vibe-lanka-south-coast-v2.0.6.1.json` (staged, not yet uploaded to production Mapbox style URL). Iteration audit trail (v1.0 → v2.0.6.1) preserved in session handoff `vibe-lanka-session-handoff-2026-05-22.txt`.
+
+    **Map.jsx integration commit: PENDING.** Style upload to Mapbox Studio, publish, then Map.jsx rewrite (Build Lead prompt staged) → eyeball gate → commit. Not yet shipped.
+
+    **SDK compatibility warnings (Mapbox Studio).** Fog properties not supported by older Maps SDK versions; native shipping deferred per existing decision. Hygiene action: bump SDK version dropdowns in Studio Settings to latest (e.g. Mapbox GL JS 3.0.0+). Not blocking.
+
+- **2026-05-22 (Sprint 1 Module 3 — core schema shipped; D-003 partially executed; auth signup trigger open flag).** Sprint 1 backend Module 3 (database schema) lands. Executes the D-003 schema baseline at column-level granularity. Local migration written and applied; promote to remote Supabase project pending.
+
+  Aligned: Samithu 2026-05-22 (executor session). Kavi looped in via SHA.
+
+  - **Commit `6d51682`.** Migration `supabase/migrations/20260522100324_create_core_schema.sql` (474 lines). ALTER on existing `places` table adds editorial, tag, partner, and operational columns; the spatial scaffold from the 2026-05-21 migration is preserved. Eight new tables: `users` (mirror of `auth.users`), `events`, `partners`, `djs`, `events_djs` (m:n join), `intents`, `intents_audit` (append-only audit table), `landmarks` (reserved, unpopulated — for Sprint 2+ when landmark-anchored venue listing surfaces).
+
+    **RLS enabled on every table including `areas` and `places`.** The 2026-05-21 spatial migration left RLS off; this migration enables it. Policies declared inline, not in a separate file:
+    - **Catalogs** (`areas`, `places`, `events`, `djs`, `events_djs`, `landmarks`): read-public, write service-role only.
+    - **`partners` and `intents_audit`:** service-role only on both reads and writes — partner records and the audit trail are not user-visible.
+    - **`intents`:** user can read/write their own rows; service-role can read all (for aggregation queries powering the intent-share percentages).
+    - **`users`:** user can read/write their own row only; service-role reads all.
+
+    Closes the RLS-on-`areas`-table open question from D-015. The other two D-015 open questions (`resolve_area_id` RPC exposure, boundary-edge venue assignment) remain open.
+
+    **Helper reuse.** `trg_set_updated_at()` and `resolve_area_id()` from the spatial migration are reused. New helper `trg_landmarks_set_area_id()` mirrors the pattern for `landmarks`.
+
+    **`intents_audit` trigger uses `SECURITY DEFINER`** with explicit `search_path = public` to avoid privilege-escalation pitfalls. Append-only enforced at the trigger level: any update or delete on `intents_audit` raises an exception.
+
+    **Promote to Supabase remote pending.** Local apply succeeded. `supabase db push` to project `vvmrqrtzasitgrkpafzj` not yet executed.
+
+  - **Open flag (high priority, blocks all auth work): `auth.users` → `public.users` signup trigger.** The `public.users` table mirrors `auth.users` but no trigger exists to populate it on signup. Without the trigger, Supabase Auth signups succeed in `auth.users` but the `public.users` mirror row is never created, breaking every downstream FK — most critically `intents.user_id`. Must land via a Build Lead chat **before any auth backend work ships** (the next Sprint 1 backend item). Owner: pending — folded into the auth-flow Build Lead session by whichever founder picks it up.
